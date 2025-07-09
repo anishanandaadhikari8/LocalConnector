@@ -2,148 +2,124 @@
 export const connectors = [
   {
     connectorId: "connector_001",
-    type: "Roommate",
-    name: "Greenwood Apartments Roommates",
-    description: "Shared bills and chores scheduling for Greenwood Apartments residents. Connect with your roommates, split bills easily, and coordinate household tasks.",
-    locationRadius: "500m",
-    membersCount: 12,
+    type: "Apartment",
+    name: "Greenwood Apartments Community",
+    description: "Official community space for Greenwood Apartments residents. Manage building announcements, amenities booking, HOA matters, and connect with neighbors.",
+    address: "123 Greenwood Ave, Downtown",
+    geoRadius: 100, // 100 meters - building specific
+    membersCount: 156,
     verifiedRequired: true,
     image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=200&fit=crop",
     creatorId: 1,
     memberIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-    rules: "Be respectful, pay bills on time, communicate about chores. No spam or inappropriate content.",
+    rules: "For verified Greenwood Apartments residents only. Respectful communication required. Use appropriate channels for different topics.",
     createdAt: "2024-06-01T00:00:00Z",
     location: "Greenwood Apartments, Downtown",
-    tags: ["roommates", "bills", "chores", "apartment"],
+    tags: ["apartment", "hoa", "community", "building"],
     isPrivate: false,
-    joinRequests: []
+    joinRequests: [],
+    modulesEnabled: ["posts", "chat", "bills", "events", "directory", "safety"]
   },
   {
     connectorId: "connector_002",
-    type: "Dating",
-    name: "Singles in Downtown",
-    description: "Meet nearby verified singles in the Downtown area. Safe, respectful dating community with AI-powered compatibility matching.",
-    locationRadius: "1km",
-    membersCount: 43,
-    verifiedRequired: true,
-    image: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=200&fit=crop",
+    type: "Marketplace", 
+    name: "Downtown Local Marketplace",
+    description: "Buy, sell, and trade with your verified neighbors. Support local businesses and find unique items in your community.",
+    address: "Downtown District",
+    geoRadius: 2000, // 2km radius
+    membersCount: 324,
+    verifiedRequired: false,
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=200&fit=crop",
     creatorId: 2,
-    memberIds: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55],
-    rules: "Be respectful and honest. No harassment or inappropriate behavior. Verified profiles only.",
+    memberIds: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
+    rules: "No scams or fraudulent activity. Meet in public places for transactions. Be honest about item conditions.",
     createdAt: "2024-06-15T00:00:00Z",
     location: "Downtown District",
-    tags: ["dating", "singles", "relationships", "social"],
+    tags: ["marketplace", "buy", "sell", "trade", "local"],
     isPrivate: false,
-    joinRequests: []
+    joinRequests: [],
+    modulesEnabled: ["posts", "marketplace", "chat", "directory"]
   },
   {
     connectorId: "connector_003",
-    type: "Business",
-    name: "Downtown Business Network",
-    description: "Connect with local businesses, share promotions, and collaborate on projects. Perfect for entrepreneurs and small business owners.",
-    locationRadius: "2km",
-    membersCount: 28,
+    type: "Safety",
+    name: "Downtown Neighborhood Watch",
+    description: "Stay safe and informed with your neighbors. Report incidents, share safety tips, and coordinate community security efforts.",
+    address: "Downtown Safety District",
+    geoRadius: 1500, // 1.5km radius
+    membersCount: 89,
     verifiedRequired: true,
-    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=200&fit=crop",
+    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&h=200&fit=crop",
     creatorId: 3,
-    memberIds: [56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83],
-    rules: "Professional conduct only. No spam advertising. Share valuable business insights and opportunities.",
-    createdAt: "2024-07-01T00:00:00Z",
-    location: "Downtown Business District",
-    tags: ["business", "networking", "entrepreneurs", "collaboration"],
+    memberIds: [31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45],
+    rules: "Verified residents only. Report actual incidents only. No vigilante behavior. Coordinate with local authorities.",
+    createdAt: "2024-06-20T00:00:00Z",
+    location: "Downtown Safety District", 
+    tags: ["safety", "watch", "security", "alerts", "community"],
     isPrivate: false,
-    joinRequests: []
+    joinRequests: [],
+    modulesEnabled: ["posts", "safety", "chat", "directory", "events"]
   },
   {
     connectorId: "connector_004",
-    type: "Secret",
-    name: "Anonymous Support Group",
-    description: "A safe space for anonymous support and confidential discussions. All messages are encrypted and self-destruct after 24 hours.",
-    locationRadius: "5km",
-    membersCount: 15,
+    type: "Event",
+    name: "Downtown Event Organizers",
+    description: "Plan and organize community events, parties, and gatherings. From block parties to cultural festivals - bring the community together!",
+    address: "Downtown Events Center",
+    geoRadius: 3000, // 3km radius
+    membersCount: 67,
     verifiedRequired: false,
-    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=200&fit=crop",
+    image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&h=200&fit=crop",
     creatorId: 4,
-    memberIds: [84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98],
-    rules: "Complete anonymity. No screenshots. Messages auto-delete. Be supportive and kind.",
-    createdAt: "2024-07-10T00:00:00Z",
-    location: "Confidential",
-    tags: ["support", "anonymous", "confidential", "help"],
-    isPrivate: true,
-    joinRequests: [99, 100]
+    memberIds: [46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60],
+    rules: "Be inclusive and welcoming. Respect local noise ordinances. Clean up after events. Coordinate with appropriate authorities for large gatherings.",
+    createdAt: "2024-06-25T00:00:00Z",
+    location: "Downtown Events District",
+    tags: ["events", "parties", "organizing", "community", "festivals"],
+    isPrivate: false,
+    joinRequests: [],
+    modulesEnabled: ["posts", "events", "chat", "directory", "bills"]
   },
   {
     connectorId: "connector_005",
-    type: "Pets",
-    name: "Downtown Pet Lovers",
-    description: "Connect with fellow pet owners, share pet photos, organize playdates, and help with lost/found pets.",
-    locationRadius: "1.5km",
-    membersCount: 35,
-    verifiedRequired: false,
-    image: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=400&h=200&fit=crop",
+    type: "Roommate", 
+    name: "Downtown Roommate Network",
+    description: "Find compatible roommates, manage shared expenses, coordinate household tasks, and build great living arrangements with trusted neighbors.",
+    address: "Downtown Residential Area",
+    geoRadius: 2500, // 2.5km radius
+    membersCount: 134,
+    verifiedRequired: true,
+    image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=200&fit=crop",
     creatorId: 5,
-    memberIds: [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135],
-    rules: "Pet-friendly content only. No animal cruelty. Help with lost pets when possible.",
-    createdAt: "2024-06-20T00:00:00Z",
-    location: "Downtown Pet Park",
-    tags: ["pets", "animals", "playdates", "lost-found"],
+    memberIds: [61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75],
+    rules: "Verified profiles only. Be honest about living habits and expectations. Respect privacy and shared spaces.",
+    createdAt: "2024-07-01T00:00:00Z",
+    location: "Downtown Residential",
+    tags: ["roommate", "housing", "bills", "chores", "living"],
     isPrivate: false,
-    joinRequests: []
+    joinRequests: [],
+    modulesEnabled: ["posts", "chat", "bills", "roommate", "directory", "events"]
   },
   {
     connectorId: "connector_006",
-    type: "Fitness",
-    name: "Downtown Fitness Buddies",
-    description: "Find workout partners, share fitness tips, and motivate each other to stay healthy and active.",
-    locationRadius: "1km",
-    membersCount: 22,
-    verifiedRequired: false,
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=200&fit=crop",
-    creatorId: 6,
-    memberIds: [136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157],
-    rules: "Positive fitness motivation only. No body shaming. Share helpful tips and encouragement.",
-    createdAt: "2024-07-05T00:00:00Z",
-    location: "Downtown Gym & Parks",
-    tags: ["fitness", "workout", "health", "motivation"],
-    isPrivate: false,
-    joinRequests: []
-  },
-  {
-    connectorId: "connector_007",
-    type: "Food",
-    name: "Downtown Foodies",
-    description: "Discover local restaurants, share food photos, organize potlucks, and find dining companions.",
-    locationRadius: "1.5km",
-    membersCount: 31,
-    verifiedRequired: false,
-    image: "https://images.unsplash.com/photo-1504674900240-9a9049b7d63d?w=400&h=200&fit=crop",
-    creatorId: 7,
-    memberIds: [158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188],
-    rules: "Food-related content only. Be respectful of dietary preferences. No food waste.",
-    createdAt: "2024-06-25T00:00:00Z",
-    location: "Downtown Restaurants",
-    tags: ["food", "restaurants", "cooking", "dining"],
-    isPrivate: false,
-    joinRequests: []
-  },
-  {
-    connectorId: "connector_008",
-    type: "Volunteer",
-    name: "Downtown Volunteers",
-    description: "Find volunteer opportunities, organize community service events, and make a positive impact together.",
-    locationRadius: "3km",
-    membersCount: 18,
+    type: "Dating",
+    name: "Verified Downtown Singles",
+    description: "Connect with verified local singles in a safe, respectful environment. Build meaningful relationships with people in your neighborhood.",
+    address: "Downtown Social District", 
+    geoRadius: 5000, // 5km radius
+    membersCount: 89,
     verifiedRequired: true,
-    image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=200&fit=crop",
-    creatorId: 8,
-    memberIds: [189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206],
-    rules: "Community service focus. No political content. Be helpful and supportive.",
-    createdAt: "2024-07-12T00:00:00Z",
-    location: "Downtown Community Center",
-    tags: ["volunteer", "community", "service", "helping"],
+    image: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=200&fit=crop",
+    creatorId: 6,
+    memberIds: [76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90],
+    rules: "Verified profiles only. Be respectful and honest. No harassment or inappropriate behavior. Meet in public places initially.",
+    createdAt: "2024-07-05T00:00:00Z",
+    location: "Downtown Social District",
+    tags: ["dating", "singles", "relationships", "verified", "local"],
     isPrivate: false,
-    joinRequests: []
-  }
+    joinRequests: [],
+    modulesEnabled: ["posts", "dating", "chat", "directory", "events"]
+     }
 ];
 
 // Connector-specific posts
@@ -581,14 +557,12 @@ export const categories = [
 ];
 
 export const connectorTypes = [
-  { id: "roommate", name: "Roommate", icon: "home-group", color: "#059669" },
-  { id: "dating", name: "Dating", icon: "heart", color: "#dc2626" },
-  { id: "business", name: "Business", icon: "briefcase", color: "#2563eb" },
-  { id: "secret", name: "Secret", icon: "lock", color: "#7c3aed" },
-  { id: "pets", name: "Pets", icon: "paw", color: "#ea580c" },
-  { id: "fitness", name: "Fitness", icon: "dumbbell", color: "#16a34a" },
-  { id: "food", name: "Food", icon: "food", color: "#ca8a04" },
-  { id: "volunteer", name: "Volunteer", icon: "hand-heart", color: "#0891b2" }
+  { id: "apartment", name: "Apartment/HOA", icon: "home-city", color: "#059669" },
+  { id: "marketplace", name: "Local Marketplace", icon: "shopping", color: "#dc2626" },
+  { id: "safety", name: "Neighborhood Watch", icon: "shield-alert", color: "#2563eb" },
+  { id: "event", name: "Event Organizing", icon: "calendar-star", color: "#7c3aed" },
+  { id: "roommate", name: "Roommate", icon: "home-group", color: "#ea580c" },
+  { id: "dating", name: "Dating (Verified)", icon: "heart-multiple", color: "#16a34a" }
 ];
 
 export const currentUser = {
@@ -828,19 +802,253 @@ export const conversations = [
   }
 ];
 
+// Mock data for all 9 modules
+
+// Bills data for bill splitting module
+export const bills = [
+  {
+    id: "bill_001",
+    connectorId: "connector_001",
+    title: "Monthly Electricity Bill",
+    description: "Building electricity bill for November 2024",
+    totalAmount: 1200,
+    category: "utilities",
+    dueDate: "2024-12-15",
+    status: "pending",
+    createdBy: {
+      id: 1,
+      name: "Alice Johnson",
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face"
+    },
+    createdAt: "2024-12-01T09:00:00Z",
+    splits: [
+      { userId: 1, name: "Alice Johnson", amount: 120, status: "paid", paidAt: "2024-12-01T15:30:00Z" },
+      { userId: 2, name: "Bob Smith", amount: 120, status: "pending" },
+      { userId: 3, name: "Carol Davis", amount: 120, status: "pending" },
+      { userId: 4, name: "David Wilson", amount: 120, status: "paid", paidAt: "2024-12-02T10:15:00Z" }
+    ]
+  },
+  {
+    id: "bill_002", 
+    connectorId: "connector_005",
+    title: "Shared Groceries",
+    description: "Weekly grocery shopping for the house",
+    totalAmount: 180,
+    category: "groceries",
+    dueDate: "2024-12-10",
+    status: "partial",
+    createdBy: {
+      id: 5,
+      name: "Emma Garcia",
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
+    },
+    createdAt: "2024-12-02T14:00:00Z",
+    splits: [
+      { userId: 5, name: "Emma Garcia", amount: 60, status: "paid", paidAt: "2024-12-02T14:00:00Z" },
+      { userId: 6, name: "Frank Miller", amount: 60, status: "paid", paidAt: "2024-12-02T16:20:00Z" },
+      { userId: 7, name: "Grace Lee", amount: 60, status: "pending" }
+    ]
+  }
+];
+
+// Safety alerts for safety module
+export const safetyAlerts = [
+  {
+    id: "alert_001",
+    connectorId: "connector_003", 
+    type: "incident",
+    severity: "medium",
+    title: "Package Theft Reported",
+    description: "Several packages reported stolen from apartment lobbies in the area. Please be cautious and consider having packages delivered to your workplace.",
+    location: "Downtown Apartment District",
+    coordinates: { latitude: 47.6062, longitude: -122.3321 },
+    reportedBy: {
+      id: 31,
+      name: "Safety Coordinator",
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
+    },
+    reportedAt: "2024-12-01T08:30:00Z",
+    verified: true,
+    affectedArea: 500, // meters radius
+    tips: ["Use secure package lockers", "Have packages delivered to workplace", "Ask neighbors to collect packages when away"]
+  },
+  {
+    id: "alert_002",
+    connectorId: "connector_003",
+    type: "warning", 
+    severity: "low",
+    title: "Construction Zone Safety",
+    description: "Major construction on Pine Street causing pedestrian detours. Use caution when walking in the area, especially at night.",
+    location: "Pine Street & 3rd Ave",
+    coordinates: { latitude: 47.6105, longitude: -122.3355 },
+    reportedBy: {
+      id: 32,
+      name: "Community Watch",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+    },
+    reportedAt: "2024-11-28T16:45:00Z",
+    verified: true,
+    affectedArea: 200,
+    tips: ["Use alternative routes", "Wear reflective clothing at night", "Stay on designated pedestrian paths"]
+  }
+];
+
+// Member directory data
+export const memberDirectory = [
+  {
+    id: 1,
+    name: "Alice Johnson",
+    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+    unit: "2A",
+    verified: true,
+    reputation: 95,
+    joinedDate: "2024-06-01",
+    role: "admin",
+    connectorId: "connector_001",
+    bio: "Building manager and long-time resident",
+    skills: ["property management", "maintenance", "community organizing"]
+  },
+  {
+    id: 2,
+    name: "Bob Smith", 
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
+    unit: "4B",
+    verified: true,
+    reputation: 87,
+    joinedDate: "2024-06-15",
+    role: "resident",
+    connectorId: "connector_001",
+    bio: "Software engineer, love tech and coffee",
+    skills: ["programming", "tech support", "troubleshooting"]
+  },
+  {
+    id: 3,
+    name: "Carol Davis",
+    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face", 
+    unit: "1C",
+    verified: true,
+    reputation: 92,
+    joinedDate: "2024-07-01",
+    role: "resident",
+    connectorId: "connector_001",
+    bio: "Teacher and community volunteer",
+    skills: ["education", "event planning", "volunteer coordination"]
+  }
+];
+
+// Roommate tools data
+export const roommateData = {
+  chores: [
+    {
+      id: "chore_001",
+      connectorId: "connector_005",
+      title: "Kitchen Cleaning",
+      description: "Deep clean kitchen including stove, counters, and floor",
+      assignedTo: 5,
+      assignedName: "Emma Garcia",
+      dueDate: "2024-12-07",
+      status: "pending",
+      frequency: "weekly",
+      estimatedTime: "1 hour"
+    },
+    {
+      id: "chore_002", 
+      connectorId: "connector_005",
+      title: "Bathroom Cleaning",
+      description: "Clean bathroom including shower, toilet, and mirrors",
+      assignedTo: 6,
+      assignedName: "Frank Miller", 
+      dueDate: "2024-12-05",
+      status: "completed",
+      completedAt: "2024-12-05T14:30:00Z",
+      frequency: "weekly",
+      estimatedTime: "45 minutes"
+    }
+  ],
+  sharedCalendar: [
+    {
+      id: "cal_001",
+      title: "House Meeting",
+      description: "Monthly house meeting to discuss shared expenses and chores",
+      date: "2024-12-15T19:00:00Z",
+      type: "meeting",
+      connectorId: "connector_005"
+    },
+    {
+      id: "cal_002",
+      title: "Grocery Shopping Day",
+      description: "Weekly shared grocery shopping trip",
+      date: "2024-12-08T10:00:00Z", 
+      type: "activity",
+      connectorId: "connector_005"
+    }
+  ]
+};
+
+// Dating features data
+export const datingProfiles = [
+  {
+    id: 76,
+    name: "Sarah Chen",
+    age: 28,
+    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=200&fit=crop&crop=face",
+    photos: [
+      "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=500&fit=crop&crop=face",
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=500&fit=crop"
+    ],
+    bio: "Love hiking, coffee, and exploring the city. Looking for someone genuine to share adventures with!",
+    interests: ["hiking", "coffee", "photography", "travel", "books"],
+    profession: "Graphic Designer",
+    education: "Art Institute",
+    distance: "0.8 miles away",
+    verified: true,
+    connectorId: "connector_006",
+    lastActive: "2 hours ago"
+  },
+  {
+    id: 77,
+    name: "Michael Rodriguez",
+    age: 31,
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+    photos: [
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=500&fit=crop"
+    ],
+    bio: "Fitness enthusiast and foodie. Always up for trying new restaurants or outdoor activities!",
+    interests: ["fitness", "cooking", "rock climbing", "wine", "music"],
+    profession: "Marketing Manager", 
+    education: "University of Washington",
+    distance: "1.2 miles away",
+    verified: true,
+    connectorId: "connector_006",
+    lastActive: "1 day ago"
+  }
+];
+
 export const connectorAdminConfig = {
-  // connectorId: { enabledModules: [moduleName], moduleOrder: [moduleName] }
-  '1': {
-    enabledModules: ['posts', 'events', 'chat'],
-    moduleOrder: ['posts', 'events', 'chat']
+  // Configuration for all 6 connector types with their enabled modules
+  'connector_001': { // Apartment
+    enabledModules: ['posts', 'chat', 'bills', 'events', 'directory', 'safety'],
+    moduleOrder: ['posts', 'directory', 'bills', 'events', 'safety', 'chat']
   },
-  '2': {
-    enabledModules: ['posts', 'marketplace', 'reviews'],
-    moduleOrder: ['posts', 'marketplace', 'reviews']
+  'connector_002': { // Marketplace
+    enabledModules: ['posts', 'marketplace', 'chat', 'directory'],
+    moduleOrder: ['marketplace', 'posts', 'chat', 'directory']
   },
-  '3': {
-    enabledModules: ['posts', 'stories', 'reels', 'events'],
-    moduleOrder: ['posts', 'stories', 'reels', 'events']
+  'connector_003': { // Safety
+    enabledModules: ['posts', 'safety', 'chat', 'directory', 'events'],
+    moduleOrder: ['safety', 'posts', 'events', 'directory', 'chat']
   },
-  // Add more as needed
+  'connector_004': { // Event
+    enabledModules: ['posts', 'events', 'chat', 'directory', 'bills'],
+    moduleOrder: ['events', 'posts', 'directory', 'chat', 'bills']
+  },
+  'connector_005': { // Roommate
+    enabledModules: ['posts', 'chat', 'bills', 'roommate', 'directory', 'events'],
+    moduleOrder: ['roommate', 'bills', 'posts', 'events', 'directory', 'chat']
+  },
+  'connector_006': { // Dating
+    enabledModules: ['posts', 'dating', 'chat', 'directory', 'events'],
+    moduleOrder: ['dating', 'posts', 'events', 'directory', 'chat']
+  }
 }; 
