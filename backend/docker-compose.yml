@@ -1,0 +1,186 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    container_name: neighborconnect-postgres
+    environment:
+      POSTGRES_DB: neighborconnect
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - neighborconnect-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: neighborconnect-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - neighborconnect-network
+
+  # User Service
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: neighborconnect-user-service
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DATABASE_URL: jdbc:postgresql://postgres:5432/neighborconnect
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: password
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: myVerySecretKeyForNeighborConnectThatShouldBe256BitsLong
+      APP_BASE_URL: http://localhost:8081
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - neighborconnect-network
+    restart: unless-stopped
+
+  # Connector Service
+  connector-service:
+    build:
+      context: ./connector-service
+      dockerfile: Dockerfile
+    container_name: neighborconnect-connector-service
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DATABASE_URL: jdbc:postgresql://postgres:5432/neighborconnect
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: password
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      USER_SERVICE_URL: http://user-service:8081
+    depends_on:
+      - postgres
+      - redis
+      - user-service
+    networks:
+      - neighborconnect-network
+    restart: unless-stopped
+
+  # API Gateway
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: neighborconnect-api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      USER_SERVICE_URL: http://user-service:8081
+      CONNECTOR_SERVICE_URL: http://connector-service:8082
+      POST_SERVICE_URL: http://post-service:8083
+      EVENT_SERVICE_URL: http://event-service:8084
+      MARKETPLACE_SERVICE_URL: http://marketplace-service:8085
+      CHAT_SERVICE_URL: http://chat-service:8086
+      NOTIFICATION_SERVICE_URL: http://notification-service:8087
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - user-service
+      - connector-service
+      - redis
+    networks:
+      - neighborconnect-network
+    restart: unless-stopped
+
+  # Monitoring with Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: neighborconnect-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    networks:
+      - neighborconnect-network
+
+  # Monitoring with Grafana
+  grafana:
+    image: grafana/grafana:latest
+    container_name: neighborconnect-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+    networks:
+      - neighborconnect-network
+
+  # Elasticsearch for logging
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.9.0
+    container_name: neighborconnect-elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=neighborconnect-cluster
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - neighborconnect-network
+
+  # Kibana for log visualization
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.9.0
+    container_name: neighborconnect-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    networks:
+      - neighborconnect-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+  elasticsearch_data:
+
+networks:
+  neighborconnect-network:
+    driver: bridge
