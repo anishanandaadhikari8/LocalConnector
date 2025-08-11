@@ -31,9 +31,7 @@ public class CircleController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CircleDetailsResponse> get(@PathVariable Long id) {
-        Circle c = circleService.getMine("").stream().filter(x -> x.getId().equals(id)).findFirst().orElse(null);
-        // Fallback simplistic fetch
-        // In a real implementation, add proper getById method in service
+        Circle c = circleService.getById(id);
         if (c == null) return ResponseEntity.notFound().build();
         List<CircleFeature> features = circleService.getFeatures(id);
         CircleDetailsResponse res = new CircleDetailsResponse();

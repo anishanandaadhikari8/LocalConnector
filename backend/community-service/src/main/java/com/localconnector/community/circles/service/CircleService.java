@@ -49,6 +49,10 @@ public class CircleService {
         return featureRepository.findByCircleId(circleId);
     }
 
+    public Circle getById(Long id) {
+        return circleRepository.findById(id).orElse(null);
+    }
+
     @Transactional
     public CircleFeature setFeature(Long circleId, String featureKey, boolean enabled) {
         List<CircleFeature> list = featureRepository.findByCircleId(circleId);
