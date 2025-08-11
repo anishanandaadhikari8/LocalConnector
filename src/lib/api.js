@@ -38,15 +38,22 @@ export const taskboardApi = {
   completePost: (postId) => fetch(`${API_BASE}/task-posts/${postId}/complete`, { method:'POST', headers: authHeaders()}).then(r=>r.json()),
 };
 
+export const session = {
+  currentRole: 'RESIDENT',
+  currentCircleId: 1,
+  setRole(r){ this.currentRole = r; },
+  setCircleId(id){ this.currentCircleId = id; }
+};
+
 export const ordersApi = {
   listMenu: (circleId) => fetch(`${API_BASE}/menu-items?circleId=${circleId}`, { headers: authHeaders()}).then(r=>r.json()),
   addMenu: (payload) => fetch(`${API_BASE}/menu-items`, { method:'POST', headers: authHeaders('ADMIN'), body: JSON.stringify(payload)}).then(r=>r.json()),
-  placeOrder: (payload) => fetch(`${API_BASE}/orders`, { method:'POST', headers: authHeaders(), body: JSON.stringify(payload)}).then(r=>r.json()),
+  placeOrder: (payload) => fetch(`${API_BASE}/orders`, { method:'POST', headers: authHeaders(), body: JSON.stringify({ originCircleId: session.currentCircleId, ...payload })}).then(r=>r.json()),
   updateOrder: (id, payload) => fetch(`${API_BASE}/orders/${id}`, { method:'PATCH', headers: authHeaders('STAFF'), body: JSON.stringify(payload)}).then(r=>r.json()),
 };
 
 export const promosApi = {
-  list: (circleId) => fetch(`${API_BASE}/promos?circleId=${circleId}`, { headers: authHeaders()}).then(r=>r.json()),
+  list: (circleId) => fetch(`${API_BASE}/promos?circleId=${circleId}&originCircleId=${session.currentCircleId}`, { headers: authHeaders()}).then(r=>r.json()),
   create: (payload) => fetch(`${API_BASE}/promos`, { method:'POST', headers: authHeaders('ADMIN'), body: JSON.stringify(payload)}).then(r=>r.json()),
   claim: (id) => fetch(`${API_BASE}/promos/${id}/claim`, { method:'POST', headers: authHeaders()}).then(r=>r.json()),
 };

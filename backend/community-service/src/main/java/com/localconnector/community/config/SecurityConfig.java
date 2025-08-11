@@ -25,6 +25,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Configuration
 @EnableWebSecurity
@@ -33,19 +34,23 @@ public class SecurityConfig {
     @Value("${app.auth.dev-enabled:true}")
     private boolean devAuthEnabled;
 
+    @Autowired
+    private com.localconnector.community.security.JwtAuthFilter jwtAuthFilter;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable());
         http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/h2-console/**", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+                .requestMatchers("/h2-console/**", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/api/v1/auth/dev-mint").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/health").permitAll()
                 .anyRequest().authenticated()
         );
 
+        http.addFilterBefore(jwtAuthFilter, AbstractPreAuthenticatedProcessingFilter.class);
         if (devAuthEnabled) {
-            http.addFilterBefore(new DevAuthFilter(), AbstractPreAuthenticatedProcessingFilter.class);
+            http.addFilterAfter(new DevAuthFilter(), com.localconnector.community.security.JwtAuthFilter.class);
         }
 
         http.httpBasic(Customizer.withDefaults());

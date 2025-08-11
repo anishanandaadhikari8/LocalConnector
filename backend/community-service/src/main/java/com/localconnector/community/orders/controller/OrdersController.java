@@ -4,6 +4,7 @@ import com.localconnector.community.orders.model.MenuItem;
 import com.localconnector.community.orders.model.OrderHeader;
 import com.localconnector.community.orders.model.OrderItem;
 import com.localconnector.community.orders.service.OrderService;
+import com.localconnector.community.cross.CrossCircleGuard;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrdersController {
     private final OrderService service;
+    private final CrossCircleGuard guard;
 
     @GetMapping("/menu-items")
     public List<MenuItem> listMenu(@RequestParam Long circleId) { return service.getMenu(circleId); }
@@ -27,6 +29,7 @@ public class OrdersController {
 
     @PostMapping("/orders")
     public ResponseEntity<OrderHeader> place(@AuthenticationPrincipal UserDetails user, @RequestBody PlaceOrderRequest req) {
+        if (!guard.isAllowed(req.originCircleId, req.circleId, "PLACE_ORDER")) return ResponseEntity.status(403).build();
         return ResponseEntity.ok(service.placeOrder(user.getUsername(), req.circleId, req.items));
     }
 
@@ -39,7 +42,7 @@ public class OrdersController {
     public List<OrderItem> items(@PathVariable Long id) { return service.getItems(id); }
 
     @Data
-    public static class PlaceOrderRequest { public Long circleId; public List<OrderItem> items; }
+    public static class PlaceOrderRequest { public Long circleId; public Long originCircleId; public List<OrderItem> items; }
     @Data
     public static class UpdateOrderRequest { public OrderHeader.Status status; }
 }
