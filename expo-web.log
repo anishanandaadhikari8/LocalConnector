@@ -1,0 +1,32 @@
+
+> neighborconnect@1.0.0 web
+> expo start --web --non-interactive
+
+  --non-interactive is not supported, use $CI=1 instead
+Starting project at /workspace
+Starting Metro Bundler
+CommandError: It looks like you're trying to use TypeScript but don't have the required
+dependencies installed.
+
+Please install typescript@^5.3.0, @types/react@~18.2.45 by running:
+
+npx expo install typescript @types/react
+
+If you're not using TypeScript, please remove the TypeScript files from your
+project
+
+
+> neighborconnect@1.0.0 web
+> expo start --web
+
+Starting project at /workspace
+Metro is running in CI mode, reloads are disabled. Remove CI=true to enable watch mode.
+Starting Metro Bundler
+
+TypeScript: A tsconfig.json has been auto-generated
+
+The following packages should be updated for best compatibility with the installed expo version:
+  @react-native-async-storage/async-storage@2.2.0 - expected version: 1.21.0
+Your project may not work correctly until you install the correct versions of the packages.
+Waiting on http://localhost:8081
+Logs for your project will appear below.
