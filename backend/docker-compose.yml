@@ -53,26 +53,19 @@ services:
       - neighborconnect-network
     restart: unless-stopped
 
-  # Connector Service
-  connector-service:
+  # Community Service
+  community-service:
     build:
-      context: ./connector-service
+      context: ./community-service
       dockerfile: Dockerfile
-    container_name: neighborconnect-connector-service
+    container_name: neighborconnect-community-service
     ports:
       - "8082:8082"
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      DATABASE_URL: jdbc:postgresql://postgres:5432/neighborconnect
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: password
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      USER_SERVICE_URL: http://user-service:8081
     depends_on:
       - postgres
       - redis
-      - user-service
     networks:
       - neighborconnect-network
     restart: unless-stopped
