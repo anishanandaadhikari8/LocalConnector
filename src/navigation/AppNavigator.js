@@ -29,6 +29,16 @@ import ExploreScreen from '../screens/ExploreScreen';
 import HelpFAQScreen from '../screens/HelpFAQScreen';
 import OnboardingTutorialScreen from '../screens/OnboardingTutorialScreen';
 import AdminModerationScreen from '../screens/AdminModerationScreen';
+import CirclesHomeScreen from '../screens/CirclesHomeScreen';
+import CircleCreateWizard from '../screens/CircleCreateWizard';
+import CircleAdminScreen from '../screens/CircleAdminScreen';
+import TaskBoardListScreen from '../screens/TaskBoardListScreen';
+import TaskPostComposer from '../screens/TaskPostComposer';
+import TaskPostDetailScreen from '../screens/TaskPostDetailScreen';
+import OrdersMenuScreen from '../screens/OrdersMenuScreen';
+import OrderCartScreen from '../screens/OrderCartScreen';
+import PromotionsScreen from '../screens/PromotionsScreen';
+import AnalyticsDashboardScreen from '../screens/AnalyticsDashboardScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -269,6 +279,16 @@ const AppNavigator = () => {
             headerLeft: null,
           }}
         />
+        <Stack.Screen name="CirclesHome" component={CirclesHomeScreen} options={{ title: 'Circles' }} />
+        <Stack.Screen name="CircleCreateWizard" component={CircleCreateWizard} options={{ title: 'Create Circle' }} />
+        <Stack.Screen name="CircleAdmin" component={CircleAdminScreen} options={{ title: 'Circle Admin' }} />
+        <Stack.Screen name="TaskBoardList" component={TaskBoardListScreen} options={{ title: 'Task Board' }} />
+        <Stack.Screen name="TaskPostComposer" component={TaskPostComposer} options={{ title: 'New Task' }} />
+        <Stack.Screen name="TaskPostDetail" component={TaskPostDetailScreen} options={{ title: 'Task' }} />
+        <Stack.Screen name="OrdersMenu" component={OrdersMenuScreen} options={{ title: 'Menu' }} />
+        <Stack.Screen name="OrderCart" component={OrderCartScreen} options={{ title: 'Your Order' }} />
+        <Stack.Screen name="Promotions" component={PromotionsScreen} options={{ title: 'Promotions' }} />
+        <Stack.Screen name="AnalyticsDashboard" component={AnalyticsDashboardScreen} options={{ title: 'Analytics' }} />
 
         {/* Utility Screens */}
         <Stack.Screen 

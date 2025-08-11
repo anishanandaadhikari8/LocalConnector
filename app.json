@@ -1,8 +1,12 @@
 {
   "expo": {
-    "name": "NeighborConnect",
+    "name": "neighborconnect",
     "slug": "neighborconnect",
     "version": "1.0.0",
+    "extra": {
+      "EXPO_PUBLIC_API_URL": "http://localhost:8082/api/v1",
+      "EXPO_PUBLIC_FEATURE_FLAGS": "circles,taskboard,orders,promotions,analytics"
+    },
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "splash": {
