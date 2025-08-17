@@ -60,7 +60,9 @@ public class UserMapper {
     
     // Partial update - only updates non-null fields
     public static void updateEntityFromDto(User entity, UserDto dto) {
-        if (dto == null) {
+        // Guard against null values to prevent NullPointerException
+        // when either the target entity or the source DTO is missing
+        if (entity == null || dto == null) {
             return;
         }
         
