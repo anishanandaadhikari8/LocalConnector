@@ -1,0 +1,84 @@
+FRONTEND-FIRST BUILD — Tasks for Cursor (NO TERMINAL; LOG PROGRESS)
+
+Rules:
+• Use a pluggable ApiAdapter: MockApi now, HttpApi later.
+• After each task, append to docs/CursorProgress.txt (format at bottom).
+• Keep app running; verify routes render. Fortune-500 polish.
+
+A) Project Setup (apps/client)
+1. Create Expo app with React Native Web + Expo Router + TypeScript in apps/client.
+2. Add deps: @tanstack/react-query, zustand, react-hook-form, zod, date-fns, victory-native, react-native-svg, recharts (web), tamagui (or nativewind), @shopify/flash-list, qrcode.react (web) + a native QR cmp.
+3. Structure:
+   apps/client/
+     app/(auth)/login.tsx
+     app/(resident)/{tabs.tsx,home.tsx,book.tsx,bookings.tsx,incidents.tsx,events.tsx,polls.tsx,profile.tsx}
+     app/(admin)/{dashboard.tsx,approvals.tsx,incidents.tsx,analytics.tsx,comms.tsx,members.tsx}
+     app/circles/switcher.tsx
+     app/kiosk/checkin.tsx
+     src/api/{ApiAdapter.ts,MockApi.ts,HttpApi.ts}
+     src/fixtures/*.json
+     src/store/{auth.ts,circle.ts,ui.ts}
+     src/components/{Button.tsx,Input.tsx,Select.tsx,TextArea.tsx,Card.tsx,Badge.tsx,Tabs.tsx,Toast.tsx,Modal.tsx,DateTimePicker.tsx,ImagePicker.tsx,QRBlock.tsx,ChartBlock.tsx,VirtualList.tsx,Empty.tsx,Skeleton.tsx}
+     src/theme/{tokens.ts,tamagui.config.ts,globals.css}
+     src/utils/{date.ts,format.ts,featureFlags.ts}
+4. Implement ApiAdapter interface with methods for login, circles, amenities, bookings, incidents, comms, members, analytics (see Requirement.txt §6).
+5. Implement MockApi using fixtures + in-memory mutation with localStorage persistence. Add artificial 200–400ms latency.
+
+B) Design System
+6. Add tokens (light/dark): primary #6C8CFF, accent #4CC38A, warning #FFC857, danger #FF6B6B, text #111318, bg #FFFFFF, surface #F6F7FB; radii 12/14/20; shadows sm/md/lg; motion 120–200ms.
+7. Typography components (H1/H2/H3/Body/Caption). Global focus-visible styles and CSS vars for web.
+8. Build the shared components listed above with a11y (labels, aria- props, larger hit targets). Provide Storybook-like preview page or route `/styleguide` (optional).
+
+C) Fixtures
+9. Create realistic fixtures:
+   • circles.json: Oakwood (APARTMENT, features [BOOKINGS,INCIDENTS,COMMS,ANALYTICS,MEMBERS]), River Inn (HOTEL, features [BOOKINGS,COMMS,ANALYTICS,ORDERS,PROMOTIONS]), North Tower (OFFICE, features [BOOKINGS,COMMS,ANALYTICS,VISITORS])
+   • users.json, memberships.json (roles across circles)
+   • amenities.json (Gym/Pool/Community Room; Restaurant Table; Meeting Rooms)
+   • bookings.json (mix of PENDING/APPROVED/REJECTED/CANCELED; some overlaps; some checked_in_at)
+   • incidents.json + incident_media.json
+   • announcements.json, events.json, event_rsvps.json, polls.json, poll_options.json, poll_votes.json
+   • demand_hourly.json, forecast_hourly.json (14d), anomaly_alerts.json
+   • (hotel) menu_items.json, orders.json, promotions.json
+   • (office) visitor_passes.json
+
+D) Navigation & Auth
+10. Dev login screen: list seed users by role/circle → loginDev() → set token, user, circle in Zustand.
+11. Circle switcher in header; show chip with type and features. Gate routes by circle.features.
+
+E) Resident flows (polished)
+12. Home: announcements (pinned first), upcoming bookings, event cards, poll widget.
+13. Book: amenity list → detail → date/time pick → conflict preview (MockApi checks against current approvals) → submit → success modal with **"Add to calendar (.ics)"** (MockApi returns an .ics data URL).
+14. My Bookings: upcoming/past; reschedule/cancel (respect cancel_window_mins); booking detail shows QR (QRBlock) with `{bookingId}` payload.
+15. Incidents: create (type, severity, text, media); show "anonymous to neighbors" toggle; list mine with status chips.
+16. Events: list + RSVP; Polls: list + vote; show aggregated bars after voting.
+17. Profile: unit, notification prefs.
+
+F) Admin/Security consoles (enterprise polish)
+18. Approvals desk: filters (date/amenity/status); table with inline Approve/Reject/Cancel; sticky header; keyboard nav; virtualization for long lists.
+19. Incidents: queue with **triage chips** (category/severity/dup hint); drawer with media preview; quick status changes OPEN→IN_PROGRESS→RESOLVED.
+20. Analytics: KPI tiles (bookings/week, avg approval time, incident MTTR, % check-ins, open alerts). Forecast chart per amenity with **surge bands** and **slot recommendation** badge. Anomalies table with **Ack** + **Apply 60-min slots 6–9pm for 7 days** modal (updates UI state).
+21. Comms: create announcements/events/polls; view RSVP counts; pin announcements.
+22. Members: invite by email, set role, verify; role badges (RESIDENT, ADMIN, SECURITY, MAINTENANCE, STAFF).
+
+G) Hotel & Office stubs (feature-gated)
+23. Hotel: if features include ORDERS/PROMOTIONS, show Menu (cards), Place Order flow (mock statuses), Promotions list (claim increments counter).
+24. Office: show "Visitor Pass" page (read-only mock) and Book "Rooms" (amenity.kind='ROOM') using the same booking engine.
+
+H) QR & Kiosk
+25. Booking detail QR shows payload `{bookingId}`; add `/kiosk/checkin` route where staff can paste or scan to mark a check-in (MockApi mutation).
+
+I) PWA, a11y & performance
+26. PWA manifest + service worker (vite/expo web); installable on desktop/mobile.
+27. Lighthouse: ≥90 a11y/Best Practices; 80+ PWA. Optimize images (lazy), code-split routes, prefer VirtualList for long feeds.
+28. Keyboard focus order, ESC-close modals, aria-labels on icons, readable table headers.
+
+J) README & Demo Script
+29. Add a top-level README with run steps (web), features, and a **7-minute demo script**:
+    1) Resident books Gym 7-8pm → conflict preview → submit → .ics  
+    2) Resident incident with photo → triage chip shows  
+    3) Admin approves bookings; sets an incident IN_PROGRESS  
+    4) Analytics: surge + anomaly → **Apply 60-min slots**  
+    5) Events RSVP + Poll vote
+30. STOP here. Do **not** start backend until I approve.
+
+Append progress after each step to docs/CursorProgress.txt using the format below.

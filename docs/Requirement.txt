@@ -1,0 +1,54 @@
+Neighbor Connect — Circle MVP Requirements (Apartments + Hotels + Offices)
+Purpose: Build FRONTEND FIRST with a Mock API and fixtures that mirror the final H2/Postgres schema. After UI is complete and running, we will implement the backend.
+
+1) Scope (UI now, backend later)
+   • Circle types: APARTMENT (primary), HOTEL (stubs), OFFICE (stubs)
+   • Modules (UI now): Bookings, Incidents, Announcements, Events (RSVP), Polls, Members, Analytics (Forecast, KPI, Anomalies with Ack + Apply Policy)
+   • Hotel stubs (UI): Orders, Promotions (readable screens; mock data)
+   • Office stubs (UI): Visitor pass (alias of guest pass; mock)
+   • Out for now: payments, chat DMs, deep integrations (only telemetry intake stub later)
+
+2) KPI tiles (for pilots later; show in UI from fixtures)
+   • Approval latency ↓ 25–40% • Conflict rate ↓ 20–30% • Incident MTTR ↓ 20–30% • % bookings with check-in ≥ 70%
+
+3) Tech
+   • Frontend: Expo (React Native) + React Native Web + Expo Router + TS
+   • State: TanStack Query + Zustand; Forms: RHF + Zod
+   • Charts: Victory (native) & Recharts (web) via a unified ChartBlock
+   • Styling: Tamagui or NativeWind + CSS vars (web)
+   • MockApi adapter now; HttpApi (OpenAPI SDK) later
+   • Backend (later): Spring Boot 3, H2 dev, Postgres-ready DDL, Flyway, Quartz, springdoc-openapi
+
+4) Security/Privacy (UI expectations)
+   • Roles: RESIDENT, ADMIN, SECURITY, MAINTENANCE, STAFF (hotel/office), SUPERADMIN (hidden)
+   • Anonymous-to-neighbors incidents (identity hidden from resident lists)
+   • No PII in Analytics; media uses signed URL concept (mock now)
+
+5) A11y/Perf/Design
+   • WCAG AA contrast, focus-visible, keyboard nav; LCP < 2.5s; 60fps scroll; route code-splitting
+   • Visual tokens (light/dark): primary #6C8CFF, accent #4CC38A, warning #FFC857, danger #FF6B6B, text #111318
+   • Type scale: H1 40/48 800; H2 28/36 700; H3 22/30 700; Body 16/24; Caption 13/18
+   • Components: radius 12–14px, soft shadows, 120–200ms motion, hover/press states
+
+6) Shared data model (for fixtures)
+   • circle{id,name,type:'APARTMENT'|'HOTEL'|'OFFICE',features[],policy_json}
+   • membership{id,circle_id,user_id,role,unit?,verified}
+   • app_user{id,email,display_name,avatar_url}
+   • amenity{id,circle_id,name,kind:'GENERAL'|'TABLE'|'ROOM',hours_json,capacity,slot_mins,requires_approval,cancel_window_mins}
+   • booking{id,circle_id,amenity_id,user_id,start_at,end_at,status:'PENDING'|'APPROVED'|'REJECTED'|'CANCELED',approved_by?,approved_at?,canceled_at?,checked_in_at?,ics_uid?}
+   • incident{id,circle_id,reporter_id,type:'SECURITY'|'MAINTENANCE'|'OTHER',severity,description,status:'OPEN'|'IN_PROGRESS'|'RESOLVED',created_at,resolved_at?}
+   • incident_media{id,incident_id,url,kind:'PHOTO'|'VIDEO'}
+   • announcement{id,circle_id,author_id,title,body_md,pinned,created_at}
+   • event{id,circle_id,title,description,start_at,end_at,capacity}
+   • event_rsvp{id,event_id,user_id,status:'GOING'|'INTERESTED'|'DECLINED'}
+   • poll{id,circle_id,question,multi} • poll_option{id,poll_id,text} • poll_vote{id,poll_id,option_id,user_id}
+   • demand_hourly{id,circle_id,amenity_id,hour,req,approvals,cancels,no_shows}
+   • forecast_hourly{id,circle_id,amenity_id,hour,demand_pred,slot_reco,is_surge}
+   • anomaly_alert{id,circle_id,metric,window,z,status:'OPEN'|'ACKED'|'RESOLVED',suggestion,created_at}
+   • (hotel UI stubs) menu_item, order_hdr, order_line, promotion
+   • (office UI stub) visitor_pass (alias of guest_pass)
+
+7) DoD (Frontend)
+   • All resident/admin screens working with MockApi • Feature flags respected
+   • Charts render from fixtures • QR check-in demo flow working
+   • Lighthouse/a11y targets met • README run + Demo Script included

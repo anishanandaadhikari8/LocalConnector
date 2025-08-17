@@ -1,0 +1,111 @@
+[
+  {
+    "id": "booking_sarah_gym_morning",
+    "circle_id": "circle_oakwood_apt",
+    "amenity_id": "amenity_oakwood_gym",
+    "user_id": "user_sarah_resident",
+    "start_at": "2024-12-20T07:00:00Z",
+    "end_at": "2024-12-20T08:00:00Z",
+    "status": "APPROVED",
+    "approved_by": "user_mike_admin",
+    "approved_at": "2024-12-19T14:30:00Z",
+    "checked_in_at": "2024-12-20T07:05:00Z",
+    "ics_uid": "booking_sarah_gym_morning_ics"
+  },
+  {
+    "id": "booking_sarah_pool_afternoon",
+    "circle_id": "circle_oakwood_apt",
+    "amenity_id": "amenity_oakwood_pool",
+    "user_id": "user_sarah_resident",
+    "start_at": "2024-12-20T15:00:00Z",
+    "end_at": "2024-12-20T16:30:00Z",
+    "status": "APPROVED",
+    "approved_by": "user_mike_admin",
+    "approved_at": "2024-12-19T16:45:00Z",
+    "checked_in_at": "2024-12-20T15:02:00Z",
+    "ics_uid": "booking_sarah_pool_afternoon_ics"
+  },
+  {
+    "id": "booking_alex_gym_evening",
+    "circle_id": "circle_oakwood_apt",
+    "amenity_id": "amenity_oakwood_gym",
+    "user_id": "user_alex_resident_2",
+    "start_at": "2024-12-20T18:00:00Z",
+    "end_at": "2024-12-20T19:00:00Z",
+    "status": "APPROVED",
+    "approved_by": "user_mike_admin",
+    "approved_at": "2024-12-19T10:15:00Z",
+    "checked_in_at": "2024-12-20T18:08:00Z",
+    "ics_uid": "booking_alex_gym_evening_ics"
+  },
+  {
+    "id": "booking_maria_community_room",
+    "circle_id": "circle_oakwood_apt",
+    "amenity_id": "amenity_oakwood_community_room",
+    "user_id": "user_maria_resident_3",
+    "start_at": "2024-12-21T19:00:00Z",
+    "end_at": "2024-12-21T21:00:00Z",
+    "status": "PENDING",
+    "ics_uid": "booking_maria_community_room_ics"
+  },
+  {
+    "id": "booking_sarah_gym_conflict",
+    "circle_id": "circle_oakwood_apt",
+    "amenity_id": "amenity_oakwood_gym",
+    "user_id": "user_sarah_resident",
+    "start_at": "2024-12-20T18:00:00Z",
+    "end_at": "2024-12-20T19:00:00Z",
+    "status": "REJECTED",
+    "approved_by": "user_mike_admin",
+    "approved_at": "2024-12-19T11:20:00Z",
+    "ics_uid": "booking_sarah_gym_conflict_ics"
+  },
+  {
+    "id": "booking_alex_pool_cancelled",
+    "circle_id": "circle_oakwood_apt",
+    "amenity_id": "amenity_oakwood_pool",
+    "user_id": "user_alex_resident_2",
+    "start_at": "2024-12-19T14:00:00Z",
+    "end_at": "2024-12-19T15:30:00Z",
+    "status": "CANCELED",
+    "approved_by": "user_mike_admin",
+    "approved_at": "2024-12-18T09:30:00Z",
+    "canceled_at": "2024-12-19T10:00:00Z",
+    "ics_uid": "booking_alex_pool_cancelled_ics"
+  },
+  {
+    "id": "booking_emma_restaurant_2",
+    "circle_id": "circle_river_inn_hotel",
+    "amenity_id": "amenity_river_inn_restaurant_table_2",
+    "user_id": "user_emma_hotel_staff",
+    "start_at": "2024-12-20T19:00:00Z",
+    "end_at": "2024-12-20T20:30:00Z",
+    "status": "APPROVED",
+    "approved_by": "user_emma_hotel_staff",
+    "approved_at": "2024-12-19T15:00:00Z",
+    "ics_uid": "booking_emma_restaurant_2_ics"
+  },
+  {
+    "id": "booking_james_meeting_small",
+    "circle_id": "circle_north_tower_office",
+    "amenity_id": "amenity_north_tower_meeting_room_small",
+    "user_id": "user_james_office_staff",
+    "start_at": "2024-12-20T10:00:00Z",
+    "end_at": "2024-12-20T11:00:00Z",
+    "status": "APPROVED",
+    "approved_by": "user_james_office_staff",
+    "approved_at": "2024-12-19T14:00:00Z",
+    "checked_in_at": "2024-12-20T10:03:00Z",
+    "ics_uid": "booking_james_meeting_small_ics"
+  },
+  {
+    "id": "booking_james_meeting_large",
+    "circle_id": "circle_north_tower_office",
+    "amenity_id": "amenity_north_tower_meeting_room_large",
+    "user_id": "user_james_office_staff",
+    "start_at": "2024-12-21T14:00:00Z",
+    "end_at": "2024-12-21T16:00:00Z",
+    "status": "PENDING",
+    "ics_uid": "booking_james_meeting_large_ics"
+  }
+]

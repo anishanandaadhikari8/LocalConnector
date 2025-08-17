@@ -1,0 +1,81 @@
+[
+  {
+    "id": "incident_pool_leak",
+    "circle_id": "circle_oakwood_apt",
+    "reporter_id": "user_sarah_resident",
+    "type": "MAINTENANCE",
+    "severity": 3,
+    "description": "Noticed a small leak near the pool pump area. Water is slowly dripping and there's some moisture on the surrounding concrete.",
+    "status": "OPEN",
+    "created_at": "2024-12-19T08:30:00Z",
+    "anonymous_to_neighbors": false
+  },
+  {
+    "id": "incident_suspicious_person",
+    "circle_id": "circle_oakwood_apt",
+    "reporter_id": "user_alex_resident_2",
+    "type": "SECURITY",
+    "severity": 4,
+    "description": "Saw someone loitering around the parking garage entrance around 11 PM last night. They seemed to be checking car doors.",
+    "status": "IN_PROGRESS",
+    "created_at": "2024-12-18T23:15:00Z",
+    "anonymous_to_neighbors": true
+  },
+  {
+    "id": "incident_gym_equipment",
+    "circle_id": "circle_oakwood_apt",
+    "reporter_id": "user_maria_resident_3",
+    "type": "MAINTENANCE",
+    "severity": 2,
+    "description": "The treadmill in the fitness center is making a loud grinding noise. Still functional but needs attention.",
+    "status": "RESOLVED",
+    "created_at": "2024-12-17T16:45:00Z",
+    "resolved_at": "2024-12-18T14:20:00Z",
+    "anonymous_to_neighbors": false
+  },
+  {
+    "id": "incident_noise_complaint",
+    "circle_id": "circle_oakwood_apt",
+    "reporter_id": "user_sarah_resident",
+    "type": "OTHER",
+    "severity": 2,
+    "description": "Loud music coming from apartment above mine (B-205) starting around 10 PM. Continues past quiet hours.",
+    "status": "OPEN",
+    "created_at": "2024-12-19T22:30:00Z",
+    "anonymous_to_neighbors": true
+  },
+  {
+    "id": "incident_broken_window",
+    "circle_id": "circle_oakwood_apt",
+    "reporter_id": "user_david_maintenance",
+    "type": "MAINTENANCE",
+    "severity": 3,
+    "description": "Broken window in the community room. Looks like it was damaged during the recent storm.",
+    "status": "IN_PROGRESS",
+    "created_at": "2024-12-19T07:00:00Z",
+    "anonymous_to_neighbors": false
+  },
+  {
+    "id": "incident_restaurant_spill",
+    "circle_id": "circle_river_inn_hotel",
+    "reporter_id": "user_emma_hotel_staff",
+    "type": "MAINTENANCE",
+    "severity": 1,
+    "description": "Minor spill in the restaurant area. Floor is slippery and needs cleaning.",
+    "status": "RESOLVED",
+    "created_at": "2024-12-19T12:00:00Z",
+    "resolved_at": "2024-12-19T12:30:00Z",
+    "anonymous_to_neighbors": false
+  },
+  {
+    "id": "incident_office_heating",
+    "circle_id": "circle_north_tower_office",
+    "reporter_id": "user_james_office_staff",
+    "type": "MAINTENANCE",
+    "severity": 3,
+    "description": "Heating system not working properly in the small meeting room. Temperature is too low for comfortable meetings.",
+    "status": "OPEN",
+    "created_at": "2024-12-19T09:15:00Z",
+    "anonymous_to_neighbors": false
+  }
+]

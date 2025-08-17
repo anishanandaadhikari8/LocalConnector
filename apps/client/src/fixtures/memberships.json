@@ -1,0 +1,66 @@
+[
+  {
+    "id": "membership_sarah_oakwood",
+    "circle_id": "circle_oakwood_apt",
+    "user_id": "user_sarah_resident",
+    "role": "RESIDENT",
+    "unit": "A-101",
+    "verified": true
+  },
+  {
+    "id": "membership_mike_oakwood",
+    "circle_id": "circle_oakwood_apt",
+    "user_id": "user_mike_admin",
+    "role": "ADMIN",
+    "unit": "Office",
+    "verified": true
+  },
+  {
+    "id": "membership_lisa_oakwood",
+    "circle_id": "circle_oakwood_apt",
+    "user_id": "user_lisa_security",
+    "role": "SECURITY",
+    "unit": "Security Office",
+    "verified": true
+  },
+  {
+    "id": "membership_david_oakwood",
+    "circle_id": "circle_oakwood_apt",
+    "user_id": "user_david_maintenance",
+    "role": "MAINTENANCE",
+    "unit": "Maintenance Office",
+    "verified": true
+  },
+  {
+    "id": "membership_alex_oakwood",
+    "circle_id": "circle_oakwood_apt",
+    "user_id": "user_alex_resident_2",
+    "role": "RESIDENT",
+    "unit": "B-205",
+    "verified": true
+  },
+  {
+    "id": "membership_maria_oakwood",
+    "circle_id": "circle_oakwood_apt",
+    "user_id": "user_maria_resident_3",
+    "role": "RESIDENT",
+    "unit": "C-312",
+    "verified": true
+  },
+  {
+    "id": "membership_emma_river_inn",
+    "circle_id": "circle_river_inn_hotel",
+    "user_id": "user_emma_hotel_staff",
+    "role": "STAFF",
+    "unit": "Front Desk",
+    "verified": true
+  },
+  {
+    "id": "membership_james_north_tower",
+    "circle_id": "circle_north_tower_office",
+    "user_id": "user_james_office_staff",
+    "role": "STAFF",
+    "unit": "Reception",
+    "verified": true
+  }
+]

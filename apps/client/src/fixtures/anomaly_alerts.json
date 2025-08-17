@@ -1,0 +1,62 @@
+[
+  {
+    "id": "anomaly_booking_surge",
+    "circle_id": "circle_oakwood_apt",
+    "metric": "booking_volume",
+    "window": "6-9 PM",
+    "z": 2.8,
+    "status": "OPEN",
+    "suggestion": "Consider extending 60-minute slots during 6-9 PM peak hours for the next 7 days to accommodate increased demand",
+    "created_at": "2024-12-19T10:00:00Z"
+  },
+  {
+    "id": "anomaly_approval_delay",
+    "circle_id": "circle_oakwood_apt",
+    "metric": "approval_latency",
+    "window": "24 hours",
+    "z": 3.2,
+    "status": "ACKED",
+    "suggestion": "Approval times are 40% above normal. Consider auto-approval for low-risk bookings or additional admin support",
+    "created_at": "2024-12-18T14:30:00Z"
+  },
+  {
+    "id": "anomaly_incident_spike",
+    "circle_id": "circle_oakwood_apt",
+    "metric": "incident_volume",
+    "window": "48 hours",
+    "z": 2.5,
+    "status": "OPEN",
+    "suggestion": "Incident reports are 30% above average. Review recent changes or consider additional security patrols",
+    "created_at": "2024-12-19T08:00:00Z"
+  },
+  {
+    "id": "anomaly_checkin_drop",
+    "circle_id": "circle_oakwood_apt",
+    "metric": "check_in_rate",
+    "window": "7 days",
+    "z": -2.1,
+    "status": "RESOLVED",
+    "suggestion": "Check-in rate dropped to 65%. QR code system was updated and issue resolved",
+    "created_at": "2024-12-15T09:00:00Z"
+  },
+  {
+    "id": "anomaly_hotel_orders",
+    "circle_id": "circle_river_inn_hotel",
+    "metric": "order_volume",
+    "window": "dinner_hours",
+    "z": 2.3,
+    "status": "OPEN",
+    "suggestion": "Restaurant orders are 25% above normal during dinner hours. Consider adding temporary staff or extending kitchen hours",
+    "created_at": "2024-12-19T18:00:00Z"
+  },
+  {
+    "id": "anomaly_office_meetings",
+    "circle_id": "circle_north_tower_office",
+    "metric": "meeting_room_utilization",
+    "window": "9-11 AM",
+    "z": 2.7,
+    "status": "ACKED",
+    "suggestion": "Meeting room demand is 35% above average during morning hours. Consider adding more small meeting rooms or adjusting booking policies",
+    "created_at": "2024-12-18T11:00:00Z"
+  }
+]

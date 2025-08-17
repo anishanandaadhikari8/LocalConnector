@@ -1,0 +1,28 @@
+BACKEND — Start ONLY after frontend approval
+
+Stack: Spring Boot 3 (Web, Security, Validation, Data JPA, H2, Flyway, Quartz, springdoc-openapi, MapStruct, Lombok).  
+Auth: /auth/devMint (JWT). DB: H2 dev, Postgres-ready DDL.  
+
+1) Project & Config
+  • SecurityConfig (JWT), OpenApiConfig, CorsConfig (allow web dev origins)
+  • Feature flags in app.yml
+2) Schema (Flyway V1, H2 now, Postgres-ready)
+  • Tables exactly per Requirement.txt (bookings, incidents, comms, analytics)
+  • Indexes: booking(circle_id, amenity_id, start_at), incident(circle_id, created_at), demand_hourly(circle_id, amenity_id, hour)
+3) Controllers/Services
+  • Auth: POST /auth/devMint, GET /me
+  • Circles: GET /circles, GET /circles/{id}/features
+  • Amenities/Bookings: GET/POST, POST /bookings, GET /bookings/mine, GET /admin/bookings, PATCH /admin/bookings/{id}, POST /bookings/{id}/checkin, GET /bookings/{id}/ics
+  • Incidents: POST, GET mine, GET admin, PATCH status
+  • Comms: Announcements CRUD, Events CRUD + RSVP, Polls create/vote
+  • Analytics: GET /analytics/kpi, GET /analytics/forecast, GET /analytics/anomalies, POST /analytics/anomalies/{id}/ack, POST /analytics/policy/apply
+4) Jobs
+  • DemandHourlyJob (hourly) • ForecastJob (nightly: seasonal avg + EWMA) • AnomalyJob (hourly) • Auto-revert temp policies
+5) OpenAPI & SDK
+  • springdoc at /v3/api-docs; generate TypeScript SDK; implement HttpApi to replace MockApi later
+6) Seeds
+  • Match the frontend fixtures for Oakwood Apartments to ease the swap
+7) Tests
+  • Booking overlap, triage mapping, anomaly spike
+8) README
+  • Run steps, env vars, health endpoints

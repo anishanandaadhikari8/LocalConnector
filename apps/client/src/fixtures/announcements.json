@@ -1,0 +1,56 @@
+[
+  {
+    "id": "announcement_holiday_schedule",
+    "circle_id": "circle_oakwood_apt",
+    "author_id": "user_mike_admin",
+    "title": "Holiday Schedule Updates",
+    "body_md": "**Important Holiday Schedule Changes**\n\nDuring the holiday season (Dec 24 - Jan 2), the following changes will apply:\n\n- **Fitness Center**: Extended hours 6 AM - 11 PM\n- **Pool**: Regular hours maintained\n- **Community Room**: Available for holiday gatherings (advance booking required)\n- **Maintenance**: Emergency services only on Dec 25 & Jan 1\n\nPlease plan accordingly and enjoy the holidays!",
+    "pinned": true,
+    "created_at": "2024-12-15T10:00:00Z"
+  },
+  {
+    "id": "announcement_pool_maintenance",
+    "circle_id": "circle_oakwood_apt",
+    "author_id": "user_david_maintenance",
+    "title": "Pool Maintenance Notice",
+    "body_md": "The swimming pool will be closed for routine maintenance on **Wednesday, December 18th** from 8 AM to 2 PM.\n\nWe apologize for any inconvenience. The pool will reopen at 2 PM the same day.",
+    "pinned": false,
+    "created_at": "2024-12-16T14:30:00Z"
+  },
+  {
+    "id": "announcement_community_event",
+    "circle_id": "circle_oakwood_apt",
+    "author_id": "user_mike_admin",
+    "title": "New Year's Eve Community Party",
+    "body_md": "Join us for a **New Year's Eve Community Celebration**!\n\n**When**: December 31st, 8 PM - 1 AM\n**Where**: Community Room\n**What**: Live music, refreshments, and a countdown to 2025!\n\nRSVP required - limited to 50 residents. Contact the office to reserve your spot.",
+    "pinned": true,
+    "created_at": "2024-12-17T09:15:00Z"
+  },
+  {
+    "id": "announcement_security_reminder",
+    "circle_id": "circle_oakwood_apt",
+    "author_id": "user_lisa_security",
+    "title": "Security Reminder: Package Delivery",
+    "body_md": "**Security Reminder**\n\nWith the holiday season approaching, we're seeing an increase in package deliveries.\n\nPlease remember:\n- Don't leave packages unattended in common areas\n- Report suspicious activity immediately\n- Use the secure package room when available\n\nStay safe and happy holidays!",
+    "pinned": false,
+    "created_at": "2024-12-18T11:45:00Z"
+  },
+  {
+    "id": "announcement_hotel_restaurant",
+    "circle_id": "circle_river_inn_hotel",
+    "author_id": "user_emma_hotel_staff",
+    "title": "New Seasonal Menu Available",
+    "body_md": "**Winter Seasonal Menu Now Available!**\n\nOur restaurant is excited to introduce our new winter seasonal menu featuring:\n\n- Hearty soups and stews\n- Roasted seasonal vegetables\n- Warm desserts and hot beverages\n\nAvailable daily from 7 AM to 11 PM. Book your table in advance!",
+    "pinned": false,
+    "created_at": "2024-12-16T16:00:00Z"
+  },
+  {
+    "id": "announcement_office_holiday",
+    "circle_id": "circle_north_tower_office",
+    "author_id": "user_james_office_staff",
+    "title": "Office Holiday Hours",
+    "body_md": "**Holiday Office Hours**\n\nDuring the holiday season, our office hours will be:\n\n- **Dec 24**: 9 AM - 2 PM\n- **Dec 25**: Closed\n- **Dec 26**: 10 AM - 4 PM\n- **Dec 31**: 9 AM - 2 PM\n- **Jan 1**: Closed\n- **Jan 2**: Regular hours resume\n\nMeeting rooms remain available for booking during open hours.",
+    "pinned": true,
+    "created_at": "2024-12-15T13:00:00Z"
+  }
+]

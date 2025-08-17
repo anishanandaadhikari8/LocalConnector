@@ -1,0 +1,32 @@
+[
+  {
+    "id": "poll_community_improvements",
+    "circle_id": "circle_oakwood_apt",
+    "question": "What community improvement would you like to see next?",
+    "multi": false
+  },
+  {
+    "id": "poll_event_preferences",
+    "circle_id": "circle_oakwood_apt",
+    "question": "Which types of community events interest you most? (Select all that apply)",
+    "multi": true
+  },
+  {
+    "id": "poll_amenity_hours",
+    "circle_id": "circle_oakwood_apt",
+    "question": "Should we extend the fitness center hours on weekends?",
+    "multi": false
+  },
+  {
+    "id": "poll_hotel_amenities",
+    "circle_id": "circle_river_inn_hotel",
+    "question": "What additional hotel service would you like to see?",
+    "multi": false
+  },
+  {
+    "id": "poll_office_services",
+    "circle_id": "circle_north_tower_office",
+    "question": "Which office services are most important to you? (Select all that apply)",
+    "multi": true
+  }
+]

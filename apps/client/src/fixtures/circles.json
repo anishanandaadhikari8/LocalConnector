@@ -1,0 +1,43 @@
+[
+  {
+    "id": "circle_oakwood_apt",
+    "name": "Oakwood Apartments",
+    "type": "APARTMENT",
+    "radius_miles": 0.5,
+    "policy_json": "{\"default_slot_duration\": 60, \"max_advance_booking_days\": 30}",
+    "features": [
+      "BOOKINGS",
+      "INCIDENTS", 
+      "COMMS",
+      "ANALYTICS",
+      "MEMBERS"
+    ]
+  },
+  {
+    "id": "circle_river_inn_hotel",
+    "name": "River Inn Hotel",
+    "type": "HOTEL",
+    "radius_miles": 0.3,
+    "policy_json": "{\"default_slot_duration\": 30, \"max_advance_booking_days\": 7}",
+    "features": [
+      "BOOKINGS",
+      "COMMS",
+      "ANALYTICS",
+      "ORDERS",
+      "PROMOTIONS"
+    ]
+  },
+  {
+    "id": "circle_north_tower_office",
+    "name": "North Tower Office",
+    "type": "OFFICE",
+    "radius_miles": 0.2,
+    "policy_json": "{\"default_slot_duration\": 120, \"max_advance_booking_days\": 14}",
+    "features": [
+      "BOOKINGS",
+      "COMMS",
+      "ANALYTICS",
+      "VISITORS"
+    ]
+  }
+]

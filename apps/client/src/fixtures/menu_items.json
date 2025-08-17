@@ -1,0 +1,66 @@
+[
+  {
+    "id": "menu_item_breakfast_omelette",
+    "name": "Garden Vegetable Omelette",
+    "description": "Fresh eggs with sautéed bell peppers, mushrooms, and spinach. Served with toast and home fries.",
+    "price": 16.99,
+    "category": "Breakfast",
+    "available": true
+  },
+  {
+    "id": "menu_item_breakfast_pancakes",
+    "name": "Blueberry Pancakes",
+    "description": "Fluffy buttermilk pancakes loaded with fresh blueberries. Served with maple syrup and butter.",
+    "price": 14.99,
+    "category": "Breakfast",
+    "available": true
+  },
+  {
+    "id": "menu_item_lunch_caesar_salad",
+    "name": "Caesar Salad",
+    "description": "Crisp romaine lettuce, parmesan cheese, croutons, and our house-made Caesar dressing.",
+    "price": 12.99,
+    "category": "Lunch",
+    "available": true
+  },
+  {
+    "id": "menu_item_lunch_burger",
+    "name": "Classic Cheeseburger",
+    "description": "8oz beef patty with cheddar cheese, lettuce, tomato, and onion on a brioche bun. Served with fries.",
+    "price": 18.99,
+    "category": "Lunch",
+    "available": true
+  },
+  {
+    "id": "menu_item_dinner_salmon",
+    "name": "Grilled Salmon",
+    "description": "Atlantic salmon fillet grilled to perfection with lemon herb butter. Served with seasonal vegetables and rice.",
+    "price": 28.99,
+    "category": "Dinner",
+    "available": true
+  },
+  {
+    "id": "menu_item_dinner_pasta",
+    "name": "Truffle Mushroom Pasta",
+    "description": "Fettuccine with wild mushrooms, truffle oil, parmesan cheese, and fresh herbs.",
+    "price": 24.99,
+    "category": "Dinner",
+    "available": true
+  },
+  {
+    "id": "menu_item_dessert_chocolate_cake",
+    "name": "Chocolate Lava Cake",
+    "description": "Warm chocolate cake with a molten center. Served with vanilla ice cream and fresh berries.",
+    "price": 9.99,
+    "category": "Dessert",
+    "available": true
+  },
+  {
+    "id": "menu_item_beverage_coffee",
+    "name": "Artisan Coffee",
+    "description": "Freshly brewed coffee from locally roasted beans. Available hot or iced.",
+    "price": 4.99,
+    "category": "Beverages",
+    "available": true
+  }
+]

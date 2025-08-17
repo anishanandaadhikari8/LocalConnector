@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neighbor Connect - Test</title>
+    <link rel="stylesheet" href="src/theme/globals.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="h1">Neighbor Connect</h1>
+        <h2 class="h2">Frontend Test Page</h2>
+        <p class="body">This is a test page to verify our CSS theme is working correctly.</p>
+        
+        <div class="card">
+            <h3 class="h3">Test Components</h3>
+            <p class="body">Testing our design system components:</p>
+            
+            <div class="flex gap-3 mt-3">
+                <button class="btn btn-primary">Primary Button</button>
+                <button class="btn btn-secondary">Secondary Button</button>
+                <button class="btn btn-danger">Danger Button</button>
+            </div>
+            
+            <div class="flex gap-2 mt-4">
+                <span class="badge badge-primary">Primary</span>
+                <span class="badge badge-success">Success</span>
+                <span class="badge badge-warning">Warning</span>
+                <span class="badge badge-danger">Danger</span>
+            </div>
+            
+            <div class="mt-4">
+                <input type="text" class="input" placeholder="Test input field">
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <h3 class="h3">Color Palette</h3>
+            <div class="flex gap-4">
+                <div>
+                    <div style="width: 50px; height: 50px; background: var(--color-primary-500); border-radius: 8px;"></div>
+                    <p class="caption">Primary</p>
+                </div>
+                <div>
+                    <div style="width: 50px; height: 50px; background: var(--color-accent-500); border-radius: 8px;"></div>
+                    <p class="caption">Accent</p>
+                </div>
+                <div>
+                    <div style="width: 50px; height: 50px; background: var(--color-warning-500); border-radius: 8px;"></div>
+                    <p class="caption">Warning</p>
+                </div>
+                <div>
+                    <div style="width: 50px; height: 50px; background: var(--color-danger-500); border-radius: 8px;"></div>
+                    <p class="caption">Danger</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <h3 class="h3">Typography Scale</h3>
+            <h1 class="h1">Heading 1 (H1)</h1>
+            <h2 class="h2">Heading 2 (H2)</h2>
+            <h3 class="h3">Heading 3 (H3)</h3>
+            <p class="body">Body text with normal weight and line height.</p>
+            <p class="caption">Caption text for smaller details.</p>
+        </div>
+        
+        <div class="card mt-4">
+            <h3 class="h3">Spacing & Layout</h3>
+            <div class="flex gap-4">
+                <div class="p-3" style="background: var(--color-background-secondary); border-radius: 8px;">
+                    <p class="caption">Padding 3</p>
+                </div>
+                <div class="p-4" style="background: var(--color-background-secondary); border-radius: 8px;">
+                    <p class="caption">Padding 4</p>
+                </div>
+                <div class="p-5" style="background: var(--color-background-secondary); border-radius: 8px;">
+                    <p class="caption">Padding 5</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+    </style>
+</body>
+</html>

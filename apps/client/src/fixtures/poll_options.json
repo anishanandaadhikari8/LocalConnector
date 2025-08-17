@@ -1,0 +1,107 @@
+[
+  {
+    "id": "poll_option_community_improvements_1",
+    "poll_id": "poll_community_improvements",
+    "text": "Dog park"
+  },
+  {
+    "id": "poll_option_community_improvements_2",
+    "poll_id": "poll_community_improvements",
+    "text": "Bike storage area"
+  },
+  {
+    "id": "poll_option_community_improvements_3",
+    "poll_id": "poll_community_improvements",
+    "text": "Outdoor seating area"
+  },
+  {
+    "id": "poll_option_community_improvements_4",
+    "poll_id": "poll_community_improvements",
+    "text": "Package delivery lockers"
+  },
+  {
+    "id": "poll_option_event_preferences_1",
+    "poll_id": "poll_event_preferences",
+    "text": "Fitness classes"
+  },
+  {
+    "id": "poll_option_event_preferences_2",
+    "poll_id": "poll_event_preferences",
+    "text": "Social gatherings"
+  },
+  {
+    "id": "poll_option_event_preferences_3",
+    "poll_id": "poll_event_preferences",
+    "text": "Educational workshops"
+  },
+  {
+    "id": "poll_option_event_preferences_4",
+    "poll_id": "poll_event_preferences",
+    "text": "Holiday celebrations"
+  },
+  {
+    "id": "poll_option_event_preferences_5",
+    "poll_id": "poll_event_preferences",
+    "text": "Children's activities"
+  },
+  {
+    "id": "poll_option_amenity_hours_1",
+    "poll_id": "poll_amenity_hours",
+    "text": "Yes, extend to 11 PM"
+  },
+  {
+    "id": "poll_option_amenity_hours_2",
+    "poll_id": "poll_amenity_hours",
+    "text": "No, current hours are fine"
+  },
+  {
+    "id": "poll_option_amenity_hours_3",
+    "poll_id": "poll_amenity_hours",
+    "text": "Yes, but only until 10 PM"
+  },
+  {
+    "id": "poll_option_hotel_amenities_1",
+    "poll_id": "poll_hotel_amenities",
+    "text": "Spa services"
+  },
+  {
+    "id": "poll_option_hotel_amenities_2",
+    "poll_id": "poll_hotel_amenities",
+    "text": "Business center"
+  },
+  {
+    "id": "poll_option_hotel_amenities_3",
+    "poll_id": "poll_hotel_amenities",
+    "text": "Concierge service"
+  },
+  {
+    "id": "poll_option_hotel_amenities_4",
+    "poll_id": "poll_hotel_amenities",
+    "text": "Fitness classes"
+  },
+  {
+    "id": "poll_option_office_services_1",
+    "poll_id": "poll_office_services",
+    "text": "Printing services"
+  },
+  {
+    "id": "poll_option_office_services_2",
+    "poll_id": "poll_office_services",
+    "text": "Mail handling"
+  },
+  {
+    "id": "poll_option_office_services_3",
+    "poll_id": "poll_office_services",
+    "text": "IT support"
+  },
+  {
+    "id": "poll_option_office_services_4",
+    "poll_id": "poll_office_services",
+    "text": "Catering options"
+  },
+  {
+    "id": "poll_option_office_services_5",
+    "poll_id": "poll_office_services",
+    "text": "Cleaning services"
+  }
+]
