@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import MockApi from '../../src/api/ApiAdapter';
 import { useAuthStore } from '../../src/store/auth';
 import { useCircleStore } from '../../src/store/circle';
-import { AppUser, Membership, UserRole, Circle } from '@/api/types';
+import { AppUser, Membership, UserRole, Circle } from '../../src/api/types';
 
 const api = new MockApi();
 

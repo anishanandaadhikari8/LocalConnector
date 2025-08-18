@@ -1,5 +1,21 @@
 ---
-description:
+description: |
+  Ensure the application always starts successfully, with working frontend and backend.
+  Cursor must:
+    - Always check **requirements.txt**, backend.txt, frontend.txt, and cursor logs.
+    - Never break the existing app; incremental safe changes only.
+    - Add automated **test cases** for every feature/fix.
+    - Validate UI/UX matches the design requirements (Fortune 500–level polish).
+    - Confirm that requirements are met before committing changes.
+    - Avoid terminal or half-baked commands; ensure code runs inside the app.
+    - Treat every update as production-grade with error handling, mocks if needed.
+    - Work in small, verifiable steps: implement, run, verify, log.
+    - If a requirement is unclear, stop and ask before assuming.
+    - The web application should always start and there should not be any error with dependency or starting the application
 globs:
+  - "**/requirements.txt"
+  - "**/frontend.txt"
+  - "**/backend.txt"
+  - "**/cursor.log"
 alwaysApply: false
 ---

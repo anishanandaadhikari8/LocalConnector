@@ -1,0 +1,177 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="5.0" version="22.1.16" etag="drawing" type="device">
+  <diagram name="Circles Architecture" id="circles-arch">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Frontend Layer -->
+        <mxCell id="frontend-layer" value="Frontend Layer (React Native Web)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="1050" height="200" as="geometry" />
+        </mxCell>
+        
+        <!-- Expo Router -->
+        <mxCell id="expo-router" value="Expo Router&#xa;(File-based Routing)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Auth Pages -->
+        <mxCell id="auth-pages" value="Auth Pages&#xa;/(auth)/login.tsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="230" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Admin Pages -->
+        <mxCell id="admin-pages" value="Admin Pages&#xa;/(admin)/*" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="380" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Resident Pages -->
+        <mxCell id="resident-pages" value="Resident Pages&#xa;/(resident)/*" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="530" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Kiosk Pages -->
+        <mxCell id="kiosk-pages" value="Kiosk Pages&#xa;/kiosk/*" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="680" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Circle Switcher -->
+        <mxCell id="circle-switcher" value="Circle Switcher&#xa;/circles/switcher.tsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="830" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- UI Components -->
+        <mxCell id="ui-components" value="UI Components&#xa;(Tamagui + Custom)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="980" y="80" width="100" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- State Management -->
+        <mxCell id="state-layer" value="State Management Layer (Zustand)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="280" width="1050" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Auth Store -->
+        <mxCell id="auth-store" value="Auth Store&#xa;(auth.ts)&#xa;- User session&#xa;- Authentication state&#xa;- User roles" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="80" y="310" width="150" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Circle Store -->
+        <mxCell id="circle-store" value="Circle Store&#xa;(circle.ts)&#xa;- Selected circle&#xa;- Circle features&#xa;- Circle data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="260" y="310" width="150" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- UI Store -->
+        <mxCell id="ui-store" value="UI Store&#xa;(ui.ts)&#xa;- Theme state&#xa;- Navigation state&#xa;- UI preferences" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="440" y="310" width="150" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- React Query -->
+        <mxCell id="react-query" value="React Query&#xa;(Data Fetching)&#xa;- API caching&#xa;- Background updates&#xa;- Error handling" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="620" y="310" width="150" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- API Layer -->
+        <mxCell id="api-layer" value="API Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="430" width="1050" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- API Adapter -->
+        <mxCell id="api-adapter" value="API Adapter&#xa;(ApiAdapter.ts)&#xa;- Unified API interface&#xa;- Mock data handling&#xa;- Future backend integration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="80" y="460" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Types -->
+        <mxCell id="types" value="TypeScript Types&#xa;(types.ts)&#xa;- User interfaces&#xa;- Circle interfaces&#xa;- API contracts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="310" y="460" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Mock Data -->
+        <mxCell id="mock-data" value="Mock Data&#xa;(fixtures/*.json)&#xa;- Users, Circles&#xa;- Memberships&#xa;- Events, Bookings" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="540" y="460" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Future Backend -->
+        <mxCell id="future-backend" value="Future Backend&#xa;(Java/Python)&#xa;- REST APIs&#xa;- Database&#xa;- Authentication" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=2;strokeStyle=dashed;" vertex="1" parent="1">
+          <mxGeometry x="770" y="460" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Flow -->
+        <mxCell id="data-layer" value="Data & Theme Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="580" width="1050" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Theme System -->
+        <mxCell id="theme-system" value="Theme System&#xa;(Tamagui)&#xa;- Design tokens&#xa;- CSS variables&#xa;- Responsive design" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="80" y="610" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Assets -->
+        <mxCell id="assets" value="Assets&#xa;- Icons, Images&#xa;- Fonts&#xa;- Splash screens" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="310" y="610" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Config -->
+        <mxCell id="config" value="Configuration&#xa;- Expo config&#xa;- Babel config&#xa;- TypeScript config" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="540" y="610" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Build System -->
+        <mxCell id="build-system" value="Build System&#xa;- Metro bundler&#xa;- Expo CLI&#xa;- Web deployment" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="770" y="610" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Connections -->
+        <mxCell id="conn1" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="frontend-layer" target="state-layer">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="400" as="sourcePoint" />
+            <mxPoint x="600" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="conn2" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="state-layer" target="api-layer">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="450" as="sourcePoint" />
+            <mxPoint x="600" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="conn3" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="api-layer" target="data-layer">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="600" as="sourcePoint" />
+            <mxPoint x="600" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Key Features Box -->
+        <mxCell id="features-box" value="Key Features" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#666666;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="720" width="1050" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature1" value="Multi-Role Support&#xa;(Admin/Resident/Security)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="80" y="740" width="150" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature2" value="Circle Management&#xa;(Communities/Hotels)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="250" y="740" width="150" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature3" value="Event Management&#xa;& Bookings" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="420" y="740" width="150" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature4" value="Incident Reporting&#xa;& Analytics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="590" y="740" width="150" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature5" value="Kiosk Mode&#xa;(Check-in/Check-out)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="760" y="740" width="150" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature6" value="Responsive Design&#xa;(Web/Mobile)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="930" y="740" width="150" height="40" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

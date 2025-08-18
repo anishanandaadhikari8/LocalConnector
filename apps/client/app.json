@@ -23,12 +23,10 @@
       "package": "com.circles.app"
     },
     "web": {
-      "bundler": "metro",
-      "output": "static"
+      "bundler": "metro"
     },
     "plugins": [
-      "expo-router",
-      "expo-image-picker"
+      "expo-router"
     ],
     "scheme": "circles"
   }
