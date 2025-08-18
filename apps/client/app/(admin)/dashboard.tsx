@@ -8,8 +8,10 @@ import {
   Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import Logo from '../../src/components/Logo';
 
 import { Ionicons } from '@expo/vector-icons';
+import { theme } from '../../src/theme/theme';
 
 // Mock KPI data - in real app this would come from API
 const mockKPIs = [
@@ -80,15 +82,15 @@ export default function AdminDashboardScreen() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'pending':
-        return '#FFC857';
+        return theme.colors.warningBg as any;
       case 'open':
-        return '#FF6B6B';
+        return theme.colors.dangerFg as any;
       case 'resolved':
-        return '#4CC38A';
+        return theme.colors.successFg as any;
       case 'cancelled':
-        return '#6B7280';
+        return theme.colors.ink700 as any;
       default:
-        return '#6B7280';
+        return theme.colors.ink700 as any;
     }
   };
 
@@ -125,7 +127,8 @@ export default function AdminDashboardScreen() {
       <ScrollView style={styles.scrollView}>
         {/* Header */}
         <View style={styles.header}>
-          <View>
+          <View style={{flexDirection:'row', alignItems:'center', gap:8}}>
+            <Logo size={28} />
             <Text style={styles.greeting}>Good morning, Mike!</Text>
             <Text style={styles.subtitle}>Admin Dashboard</Text>
           </View>
@@ -145,28 +148,28 @@ export default function AdminDashboardScreen() {
             style={styles.actionButton}
             onPress={() => router.push('/(admin)/approvals')}
           >
-            <Ionicons name="checkmark-circle" size={24} color="#6C8CFF" />
+            <Ionicons name="checkmark-circle" size={24} color={theme.colors.primary700 as any} />
             <Text style={styles.actionText}>Approvals</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.actionButton}
             onPress={() => router.push('/(admin)/incidents')}
           >
-            <Ionicons name="warning" size={24} color="#FF6B6B" />
+            <Ionicons name="warning" size={24} color={theme.colors.dangerFg as any} />
             <Text style={styles.actionText}>Incidents</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.actionButton}
             onPress={() => router.push('/(admin)/analytics')}
           >
-            <Ionicons name="bar-chart" size={24} color="#4CC38A" />
+            <Ionicons name="bar-chart" size={24} color={theme.colors.successFg as any} />
             <Text style={styles.actionText}>Analytics</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.actionButton}
             onPress={() => router.push('/(admin)/members')}
           >
-            <Ionicons name="people" size={24} color="#54A6FF" />
+            <Ionicons name="people" size={24} color={theme.colors.accent500 as any} />
             <Text style={styles.actionText}>Members</Text>
           </TouchableOpacity>
         </View>
@@ -178,10 +181,10 @@ export default function AdminDashboardScreen() {
             {mockKPIs.map((kpi, index) => (
               <View key={index} style={styles.kpiCard}>
                 <View style={styles.kpiHeader}>
-                  <Ionicons name={kpi.icon as any} size={20} color="#6B7280" />
+                  <Ionicons name={kpi.icon as any} size={20} color={theme.colors.ink700 as any} />
                   <Text style={[
                     styles.kpiChange,
-                    { color: kpi.changeType === 'positive' ? '#4CC38A' : '#FF6B6B' }
+                    { color: kpi.changeType === 'positive' ? (theme.colors.successFg as any) : (theme.colors.dangerFg as any) }
                   ]}>
                     {kpi.change}
                   </Text>
@@ -205,7 +208,7 @@ export default function AdminDashboardScreen() {
             {mockRecentActivities.map((activity) => (
               <View key={activity.id} style={styles.activityCard}>
                 <View style={styles.activityIcon}>
-                  <Ionicons name={getActivityIcon(activity.type) as any} size={20} color="#6B7280" />
+                  <Ionicons name={getActivityIcon(activity.type) as any} size={20} color={theme.colors.ink700 as any} />
                 </View>
                 <View style={styles.activityContent}>
                   <Text style={styles.activityMessage}>{activity.message}</Text>
@@ -252,7 +255,7 @@ export default function AdminDashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F6F7FB',
+    backgroundColor: theme.colors.surface50 as any,
   },
   scrollView: {
     flex: 1,
@@ -267,12 +270,12 @@ const styles = StyleSheet.create({
   greeting: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#111318',
+    color: theme.colors.ink900 as any,
     marginBottom: 4,
   },
   subtitle: {
     fontSize: 16,
-    color: '#6B7280',
+    color: theme.colors.ink700 as any,
   },
   profileButton: {
     padding: 4,
@@ -281,7 +284,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#FF6B6B',
+    backgroundColor: theme.colors.dangerFg as any,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -298,7 +301,7 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface0 as any,
     borderRadius: 16,
     padding: 20,
     alignItems: 'center',
@@ -311,7 +314,7 @@ const styles = StyleSheet.create({
   actionText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#111318',
+    color: theme.colors.ink900 as any,
     textAlign: 'center',
     marginTop: 8,
   },
@@ -328,11 +331,11 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#111318',
+    color: theme.colors.ink900 as any,
   },
   seeAllText: {
     fontSize: 14,
-    color: '#6C8CFF',
+    color: theme.colors.primary700 as any,
     fontWeight: '600',
   },
   kpiGrid: {
@@ -341,8 +344,9 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   kpiCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface0 as any,
     borderRadius: 16,
+    
     padding: 20,
     flex: 1,
     minWidth: '45%',
@@ -365,19 +369,19 @@ const styles = StyleSheet.create({
   kpiValue: {
     fontSize: 32,
     fontWeight: '800',
-    color: '#111318',
+    color: theme.colors.ink900 as any,
     marginBottom: 8,
   },
   kpiTitle: {
     fontSize: 14,
-    color: '#6B7280',
+    color: theme.colors.ink700 as any,
     fontWeight: '500',
   },
   activitiesContainer: {
     gap: 12,
   },
   activityCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface0 as any,
     borderRadius: 12,
     padding: 16,
     flexDirection: 'row',
@@ -392,7 +396,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#F3F4F6',
+    backgroundColor: theme.colors.surface100 as any,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 16,
@@ -402,7 +406,7 @@ const styles = StyleSheet.create({
   },
   activityMessage: {
     fontSize: 14,
-    color: '#111318',
+    color: theme.colors.ink900 as any,
     marginBottom: 8,
     lineHeight: 20,
   },
@@ -413,7 +417,7 @@ const styles = StyleSheet.create({
   },
   activityTime: {
     fontSize: 12,
-    color: '#9CA3AF',
+    color: theme.colors.ink700 as any,
   },
   statusBadge: {
     flexDirection: 'row',
@@ -435,7 +439,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   statCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface0 as any,
     borderRadius: 12,
     padding: 16,
     flex: 1,
@@ -450,12 +454,12 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#111318',
+    color: theme.colors.ink900 as any,
     marginBottom: 4,
   },
   statLabel: {
     fontSize: 12,
-    color: '#6B7280',
+    color: theme.colors.ink700 as any,
     textAlign: 'center',
     fontWeight: '500',
   },

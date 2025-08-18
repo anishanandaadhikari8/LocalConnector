@@ -1,0 +1,344 @@
+# Circles — Investor Overview & Product Specification
+
+**Tagline:** The verified, hyperlocal network for getting things done within walking distance.
+
+**Core concept:** Everything happens inside **Circles** (geo-cells, buildings, and organizations). People post **Signals** (short, timely local posts), **Asks**, **Swaps**, **Events**, and admin **Bulletins**. Identity is verified (ID + face liveness), locality is strict (H3 cells), and privacy is a feature (we store **cell_id** only, never long‑term GPS).
+
+---
+
+## 1) Executive Summary
+
+* **Problem:** Citywide and global social apps are noisy, unverified, and poor at solving immediate local needs.
+* **Solution:** **Circles + Signals**: verified people in small geographic cells share short local updates, ask for help, exchange items, and coordinate events—while apartments, hotels, and businesses run managed Circles with analytics.
+* **Why now:** Post‑pandemic neighborhoods, tenant experience focus, campus/corporate site ops, and privacy norms demand **trusted hyperlocal** tools.
+* **Business model:** B2B SaaS for **apartments/hotels/campuses/corporates/SMBs**; optional pay‑per‑reach for personal/creator Circles later; marketplace fees (Swaps/Tasks) in phase 2.
+* **North Star:** **Time‑to‑First‑Response (TTFR)** on help posts under **30 minutes** in active cells.
+
+---
+
+## 2) Market & Positioning
+
+* **Users:** residents, students, employees, small business owners, property managers, hotel staff/guests.
+* **Buyers:** property managers/HOAs, hotels, retail/corporate site ops, SMB owners, campus housing.
+* **Differentiation:** verified identity (one human = one account), **cell‑bounded reach**, utility‑first ranking, strong privacy posture.
+
+---
+
+## 3) Product Overview
+
+### Circles (containers)
+
+1. **Local Cell Circle** — automatic for a geo‑cell (H3/S2). All verified locals in that cell.
+2. **Building Circle** — apartments/HOAs/hotels. Membership via lease/roster verification.
+3. **Org Circle** — corporate site or SMB storefront. Membership via work email/SSO or business verification.
+
+**User feed = Building/Org memberships ∪ HomeCell ∪ NowCell (±1 ring).**
+
+### Identity & Verification
+
+* **KYC:** ID + liveness (vendor). Store **match token** only (no biometrics at rest).
+* **Resident verification:** lease code/doc → **HomeCell** + Building Circle.
+* **Employee verification:** work email/SSO or HR roster → Org Circle.
+* **NowCell:** explicit consent; rate‑limited changes; stored as **cell_id** only.
+* **(Optional) Enhanced checks:** for high‑risk roles/flows (care work, entering homes) based on Circle policy.
+
+### Locality & Privacy
+
+* **H3 cells** (city res 8–9; suburb 7; rural 6–7).
+* Store **cell_id** only; never keep raw GPS long‑term.
+* Coarse UI: “near Oak Ave.”
+
+---
+
+## 4) Value by Segment (why they’ll pay)
+
+**Apartments/Hotels (Building Circles)**
+
+* Announcements/alerts, maintenance templates, resident roster verification.
+* KPIs: adoption, **TTFR** on Asks, resolution rate, RSVP, quiet hours, top topics.
+* Pricing: **$0.50–$1.50 / unit / month** (features + seats + SLA tiers).
+
+**SMBs (Small Business Circles)**
+
+* Post Deals/Updates/Hiring to **store cell (+ optional 1 ring)**, redemption QR, time‑of‑day insights; limited DM to verified locals.
+* Pricing: **$29–$199 / site / month** + optional boosts.
+
+**Corporates/Campuses (Org Circles)**
+
+* Employee threads, ops bulletins, site‑level deals to adjacent cells (tight caps), compliance controls, analytics.
+* Pricing: per site/month or enterprise contract.
+
+*(Creators/celebrity Circles deferred for MVP. Revisit later as cell‑bundled, clearly labeled.)*
+
+---
+
+## 5) KPIs & Targets
+
+* **TTFR on Asks:** < 30 min (active cells)
+* **Ask fulfillment rate:** > 60% within 48h
+* **Verified adoption (building pilot):** ≥ 50% in 30 days
+* **WAU engagement:** ≥ 30% of actives post or claim weekly
+* **Reported content:** < 1% of posts; mod SLA < 2h
+
+---
+
+## 6) Safety, Trust, Moderation
+
+**Product rails:** mutual block (invisibility across shared cells/circles), rate‑limited NowCell changes, DM throttles, hidden‑word filters, first‑post reach limits, “building‑only” mode, coarse location.
+
+**Policy:** short “House Rules”; 3‑step enforcement (warning → freeze → ban), instant bans for egregious harm; appeal process with audit trail.
+
+**Process:** mod console for Building/Org admins; central safety queue with SLAs; trust score (Thanks, completions, reports against, block count) affects reach.
+
+---
+
+## 7) Product Details
+
+### 7.1 Posts & Flows
+
+**Signals (local shorts)**
+
+* 10–30s video/audio or quick text; **24–48h TTL**
+* Tags: **Help, Safety, Lost+Found, For Sale, Event Teaser, Giveaway**
+* Actions: **Help / Claim / DM / Thank**
+
+**Asks**
+
+* Structured ticket: **Open → Claimed → Done**
+* SLA timers; auto nudges; **Thank** on completion → reputation
+
+**Swaps**
+
+* **Lend/Borrow/Free/Sell**. Optional deposits/escrow later
+
+**Events**
+
+* Simple create; **RSVP; reminders; host tools**
+
+**Bulletins (admins)**
+
+* Announcements/alerts with cooldown; pin limits
+
+**Giveaways (community)**
+
+* Share surplus food/items; set pickup window; “claimed” state; auto‑expire.
+
+**Fun local posts**
+
+* Light category (photos of a sunset, local art); rank lower than utility; expire fast to preserve signal‑to‑noise.
+
+### 7.2 Flows (high level)
+
+* **Ask → Claim → Thank**: increases both parties’ reputation; boosts future visibility.
+* **Signal composer**: 2 taps to record; auto‑captions; quick tags; pick scope (HomeCell / NowCell / Building / Org).
+* **Event flow**: template + flyer/QR download; RSVP → reminder → after‑event photo prompt.
+
+---
+
+## 8) APIs (by Circle type)
+
+### Common
+
+* **Auth:** email/phone + magic link/OTP.
+* **Verification:** `POST /v1/verify` (kind: id_liveness | lease | work_email | sso); returns tokenized status.
+* **NowCell:** `POST /v1/now-cell { lat, lon, consent }` → `{ cell_id }` (no GPS stored).
+* **Feed:** `GET /v1/feed?homeCell=&nowCell=&ring=1&include=signal,ask,event,swap,bulletin&after=`
+* **Moderation:** report/block endpoints; admin actions; audit log.
+
+### Local Cell Circles (geo)
+
+* **List signals in a cell:** `GET /v1/cells/{cell_id}/signals?after=&limit=`
+* **Post to a cell:** `POST /v1/cells/{cell_id}/signals` (kind, caption, media, tags, expiresInHours)
+* **Asks in a cell:** `POST /v1/cells/{cell_id}/asks` → ticket; `POST /v1/asks/{id}/claim`; `POST /v1/asks/{id}/thank`
+* **Events in a cell:** create/list/RSVP
+
+### Building Circles (apartments/hotels)
+
+* **Create bulletin:** `POST /v1/buildings/{building_id}/bulletins` (cooldown/pin guards)
+* **Resident roster verification:** `POST /v1/buildings/{id}/verify-resident` (code/doc)
+* **KPIs:** `GET /v1/buildings/{id}/analytics?range=30d` (adoption, TTFR, resolution, RSVP)
+
+### Org Circles (SMB/Corporate/Campus)
+
+* **Deals/updates/hiring:** `POST /v1/orgs/{org_id}/signals` (scope limited to site cells)
+* **Employee threads:** `POST /v1/orgs/{org_id}/threads`
+* **Site analytics:** `GET /v1/orgs/{org_id}/sites/{site_id}/analytics?range=30d`
+
+*(GraphQL option available; see Appendix for schema sketch.)*
+
+---
+
+## 9) Ranking & Rate Limits
+
+**Ranking:** `score = recency*w1 + distance*w2 + typePriority*w3 + socialProof*w4 + completionLikelihood*w5 − reports*w6`.
+
+* **TypePriority:** Ask/Safety > Signal > Event > Swap > Bulletin/Deal
+* Prefer **HomeCell** over NowCell ring; fast decay after 24h unless active.
+
+**Rate limits (initial):**
+
+* NowCell switches: **3/day**, 15–30 min cooldown; posting paused 5 min after switch
+* New accounts: reduced reach until 3 Thanks or 1 completed Claim
+* DM throttle: first‑contact limits; global daily cap
+* Admin bulletins: 1 pinned per building/org at a time; cooldowns
+
+---
+
+## 10) Technical Architecture
+
+**Transport layer:** H3 (res 8–9 city; 7 suburb; 6–7 rural). Store **cell_id** only.
+
+**Backend:** Node/TS or Go; Postgres (+GIN), Redis cache, object store for media (S3/GCS); optional Elastic for search; queue (SQS/PubSub) for media jobs.
+
+**Media:** HLS transcode, auto‑captions; signed URLs; short TTLs; deletion on expiry.
+
+**Observability:** tracing, metrics dashboards; feature KPIs (TTFR, adoption) as first‑class.
+
+**Privacy:** no GPS at rest; minimal PII; DSR endpoints; audit logs; strong content security headers.
+
+---
+
+## 11) Go‑To‑Market
+
+1. **Pilot 3–5 buildings + 1 campus + 1 hotel** (300–500 users each). Seed starter Signals/Asks; ambassador kits; QR flyers.
+2. Measure KPIs (TTFR, adoption, fulfillment). Publish one‑pager ROI to convert annual.
+3. Add SMB sites around pilots; launch Org Circles; enable Deals/Redemptions.
+4. Phase‑2: marketplace escrow and advanced analytics.
+
+---
+
+## 12) Pricing (indicative)
+
+* **Buildings/Hotels:** $0.50–$1.50 / unit / month (tiers: alerts, analytics depth, SLA)
+* **SMBs:** $29–$199 / site / month (footprint + features)
+* **Corporates/Campuses:** per site or enterprise quote
+* **Resident Pro (optional):** $2–$4 / mo (priority on Asks, badge, advanced filters)
+
+---
+
+## 13) Risks & Mitigations
+
+* **Cold start:** seeded content, ambassador kits, starter Asks, pop‑events.
+* **Onboarding friction:** progressive unlocks; manual review; clear privacy copy.
+* **Harassment:** product rails + mods + policy + process (see §6).
+* **Regulatory:** vendorized KYC; store tokens only; DSR tooling; child‑safety policies.
+
+---
+
+## 14) Roadmap (next 90–180 days)
+
+* **M0–M1:** H3 transport, NowCell API, feed merge; KYC integration; Signals MVP
+* **M2:** Asks with Claim/Thank + dashboards for buildings; Events 1.0
+* **M3:** Org/SMB Circles + Deals/Redemptions; analytics; moderation console
+* **M4–M6:** Swaps with optional escrow; search; localization; performance hardening
+
+---
+
+## 15) Investment & Use of Funds (example)
+
+* **Ask:** $1.5–$3.0M seed to 18 months
+* **Use:** 40% eng/product, 25% GTM/pilots, 20% trust & safety + ops, 15% infra & runway
+
+---
+
+## Appendix A — Data Model (sketch)
+
+* **User**(id, home_cell_id, verified_neighbor, trust_score)
+* **UserNowCell**(user_id, cell_id, switches_today)
+* **Circle**(id, type: cell|building|org, name, cell_id?, org_id?, visibility)
+* **Membership**(user_id, circle_id, role)
+* **Signal**(id, author_id, scope: cell|circle, cell_id, circle_id?, kind: signal|ask|swap|event, caption, media_url, tags[], expires_at, created_at)
+* **Ask**(id, author_id, cell_id|circle_id, status, claimer_id?, created_at, closed_at)
+* **Event**(id, host_id, cell_id|circle_id, starts_at, ends_at, location_hint)
+* **Verification**(id, user_id, kind, status, evidence_url?, issuer_id)
+* **Thank**(id, from_user, to_user, context_type, context_id)
+* **Report/Block**, **Analytics** tables
+
+---
+
+## Appendix B — GraphQL Schema (excerpt)
+
+```graphql
+type Query {
+  feed(homeCell: ID!, nowCell: ID, ring: Int = 1, include: [FeedType!] = [SIGNAL, ASK, EVENT, SWAP, BULLETIN], after: String, limit: Int = 30): FeedPage!
+  myCircles: [Circle!]!
+}
+
+type Mutation {
+  createSignal(input: {scope: PostScope!, cellId: ID, circleId: ID, kind: SignalKind!, media: Upload, caption: String, tags: [String!]!, expiresInHours: Int = 24}): Signal!
+  createAsk(input: {scope: PostScope!, cellId: ID, circleId: ID, title: String!, body: String!, tags: [String!]!}): Ask!
+  claimAsk(id: ID!): Ask!
+  thank(input: {toUserId: ID!, contextType: ThankContext!, contextId: ID!}): Thank!
+  createEvent(input: {scope: PostScope!, cellId: ID, circleId: ID, startsAt: DateTime!, endsAt: DateTime!, title: String!, details: String}): Event!
+  createBulletin(input: {circleId: ID!, title: String!, body: String!, pin: Boolean}): Bulletin!
+}
+
+enum PostScope { cell circle }
+enum FeedType { SIGNAL ASK EVENT SWAP BULLETIN }
+enum SignalKind { signal ask swap event }
+```
+
+---
+
+## Appendix C — Flowcharts
+
+**User onboarding, verification & access**
+
+```mermaid
+flowchart TD
+  A[Start] --> B[Create account]
+  B --> C[ID + Face verify (KYC + liveness)]
+  C -->|match| D[De-dup (one account per person)]
+  C -->|no match| Cx[Retry/manual review]
+  D --> E[Provide lease/work proof if applicable]
+  E --> F[Set HomeCell (H3)]
+  F --> G[Consent to NowCell (optional; rate-limited)]
+  G --> H[Join eligible Circles: Building/Org + HomeCell (+NowCell ring)]
+  H --> I[Local feed]
+```
+
+**Posting & local distribution**
+
+```mermaid
+flowchart TD
+  A[Compose: Signal/Ask/Swap/Event] --> B{Scope}
+  B -->|Cell| C1[Pin to HomeCell or NowCell]
+  B -->|Circle| C2[Pin to Building/Org Circle]
+  C1 --> D[Moderation checks]
+  C2 --> D
+  D -->|pass| E[Publish]
+  D -->|flag| Dx[Mod queue]
+  E --> F[Index by cell_id + type + time]
+  F --> G[Rank utility-first]
+  G --> H[Deliver to eligible users]
+```
+
+**Moderation & safety**
+
+```mermaid
+flowchart TD
+  A[Report] --> B[Safety queue]
+  B --> C{Severity}
+  C -->|Egregious| D[Immediate freeze/ban]
+  C -->|Standard| E[Warn → 7-day freeze → Ban]
+  E --> F[Appeal → Evidence review]
+```
+
+---
+
+## Appendix D — Rate Limits (initial)
+
+* NowCell changes: **3/day**, 15–30 min cooldown; posting paused 5 min after switch
+* New accounts: reduced reach until 3 **Thanks** or 1 **Claim→Done**
+* DMs: first‑contact/total daily caps
+* Admin bulletins: 1 pinned per Circle; cooldowns
+
+---
+
+## Appendix E — Glossary
+
+* **Circle:** a container (Local Cell, Building, Org) defining who sees what.
+* **Signal:** short, local post (video/audio/text) with 24–48h TTL.
+* **Ask:** structured help ticket with Claim/Thank loop.
+* **HomeCell/NowCell:** verified home cell / current cell with consent.
+* **TTFR:** Time‑to‑First‑Response — the hero metric.

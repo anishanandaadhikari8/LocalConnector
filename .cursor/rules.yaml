@@ -1,0 +1,24 @@
+---
+description: >
+  Never break app start. Before any change, read docs/* specs and CursorProgress. Small diffs, keep /health rendering, add tests, and log progress.
+globs:
+  alwaysApply: true
+rules:
+  - id: preflight-read
+    message: "Preflight: read Requirement.txt, frontend.txt, backend.txt, CursorProgress.txt; identify next task."
+    severity: error
+  - id: keep-start-green
+    message: "App must render /health and /login; no TS errors."
+    severity: error
+  - id: small-change
+    message: "If >10 files change, split into smaller tasks."
+    severity: warning
+  - id: logging
+    message: "Append to docs/CursorProgress.txt after each task."
+    severity: error
+  - id: no-terminal
+    message: "No interactive terminals. Modify files/scripts only."
+    severity: warning
+
+
+

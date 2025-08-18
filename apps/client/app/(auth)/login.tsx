@@ -1,201 +1,114 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
+import Logo from '../../src/components/Logo';
+import { theme } from '../../src/theme/theme';
 import MockApi from '../../src/api/ApiAdapter';
 import { useAuthStore } from '../../src/store/auth';
 import { useCircleStore } from '../../src/store/circle';
-import { AppUser, Membership, UserRole, Circle } from '../../src/api/types';
+
+type UserRole = 'RESIDENT'|'ADMIN'|'SECURITY'|'MAINTENANCE'|'STAFF';
+type AppUser = { id:string; email:string; display_name:string; avatar_url?:string };
+type Membership = { id:string; circle_id:string; user_id:string; role:UserRole };
+type Circle = { id:string; name:string; type:'APARTMENT'|'HOTEL'|'OFFICE' };
 
 const api = new MockApi();
 
 export default function LoginScreen() {
   const [circles, setCircles] = useState<Circle[]>([]);
-  const [memberships, setMemberships] = useState<Membership[]>([]);
   const [users, setUsers] = useState<AppUser[]>([]);
-  const [selectedCircleId, setSelectedCircleId] = useState<string>('');
-  const [selectedUserId, setSelectedUserId] = useState<string>('');
+  const [memberships, setMemberships] = useState<Membership[]>([]);
+  const [circleId, setCircleId] = useState('');
+  const [userId, setUserId] = useState('');
+  const { login } = useAuthStore(); const { setCircle } = useCircleStore();
 
-  const { login } = useAuthStore();
-  const { setCircle } = useCircleStore();
+  useEffect(()=>{ (async()=>{ setCircles(await api.getCircles()); setUsers(await api.listUsers()); })(); },[]);
+  useEffect(()=>{ (async()=>{ if(!circleId){ setMemberships([]); setUserId(''); return; } setMemberships(await api.listMembers(circleId)); })(); },[circleId]);
 
-  useEffect(() => {
-    (async () => {
-      setCircles(await api.getCircles());
-      setUsers(await api.listUsers());
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      if (selectedCircleId) {
-        // MockApi doesn't filter by circle for users; we derive by memberships
-        const all = await api.listMembers(selectedCircleId);
-        setMemberships(all);
-      } else {
-        setMemberships([]);
-        setSelectedUserId('');
-      }
-    })();
-  }, [selectedCircleId]);
-
-  const devUsersForCircle = useMemo(() => {
-    if (!selectedCircleId) return [];
-    return memberships
-      .map((m) => {
-        const u = users.find((x) => x.id === m.user_id);
-        if (!u) return null;
-        return {
-          id: u.id,
-          name: u.display_name,
-          email: u.email,
-          role: m.role as UserRole,
-        };
-      })
-      .filter(Boolean) as Array<{id:string;name:string;email:string;role:UserRole}>;
-  }, [memberships, users, selectedCircleId]);
+  const devUsers = useMemo(()=> memberships.map(m=>{
+    const u = users.find(x=>x.id===m.user_id); if(!u) return null;
+    return { id:u.id, name:u.display_name, email:u.email, role:m.role as UserRole, avatar:u.avatar_url };
+  }).filter(Boolean) as {id:string;name:string;email:string;role:UserRole;avatar?:string}[], [memberships, users]);
 
   const handleLogin = async () => {
-    if (!selectedCircleId || !selectedUserId) return;
-    const circle = circles.find((c) => c.id === selectedCircleId)!;
-    const dev = devUsersForCircle.find((d) => d.id === selectedUserId)!;
-    try {
-      const { token, user } = await api.loginDev(dev.email, dev.role, circle.id);
-      // set auth + circle
-      login({ token, user, circle, role: dev.role });
-      const features = await api.getCircleFeatures(circle.id);
-      setCircle(circle, features);
-      // route by role
-      if (dev.role === 'ADMIN' || dev.role === 'SECURITY' || dev.role === 'MAINTENANCE') {
-        router.replace('/(admin)/dashboard');
-      } else {
-        router.replace('/(resident)/home');
-      }
-    } catch (e) {
-      console.error('Login failed', e);
-    }
+    if (!circleId || !userId) return;
+    const circle = circles.find(c=>c.id===circleId)!;
+    const dev = devUsers.find(d=>d.id===userId)!;
+    const { token, user } = await api.loginDev(dev.email, dev.role, circle.id);
+    const features = await api.getCircleFeatures(circle.id);
+    login({ token, user, circle, role: dev.role }); setCircle(circle, features);
+    if (['ADMIN','SECURITY','MAINTENANCE'].includes(dev.role)) router.replace('/(admin)/dashboard');
+    else router.replace('/(resident)/home');
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.title}>Neighbor Connect</Text>
-        <Text style={styles.subtitle}>Development Login</Text>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Select Community</Text>
-          {circles.map((circle) => (
-            <TouchableOpacity
-              key={circle.id}
-              style={[
-                styles.option,
-                selectedCircleId === circle.id && styles.selectedOption
-              ]}
-              onPress={() => setSelectedCircleId(circle.id)}
-            >
-              <Text style={styles.optionText}>{circle.name}</Text>
-              <Text style={styles.optionSubtext}>{circle.type}</Text>
-            </TouchableOpacity>
-          ))}
+    <View style={styles.page}>
+      <View style={styles.hero}>
+        <View style={{flexDirection:'row', alignItems:'center', gap:12, marginBottom:8}}>
+          <Logo size={56} />
+          <Text style={styles.brand}>Circles</Text>
         </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Select User</Text>
-          {devUsersForCircle.map((user) => (
-            <TouchableOpacity
-              key={user.id}
-              style={[
-                styles.option,
-                selectedUserId === user.id && styles.selectedOption
-              ]}
-              onPress={() => setSelectedUserId(user.id)}
-            >
-              <Text style={styles.optionText}>{user.name}</Text>
-              <Text style={styles.optionSubtext}>{user.role} • {user.email}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-
-        <TouchableOpacity
-          style={[
-            styles.loginButton,
-            (!selectedCircleId || !selectedUserId) && styles.loginButtonDisabled
-          ]}
-          onPress={handleLogin}
-          disabled={!selectedCircleId || !selectedUserId}
-        >
-          <Text style={styles.loginButtonText}>Login</Text>
-        </TouchableOpacity>
+        <Text style={styles.title}>Welcome to Neighbor Connect</Text>
+        <Text style={styles.subtitle}>Verified local communities. Apartments first — fast bookings, safer spaces.</Text>
       </View>
-    </ScrollView>
+      <View style={styles.card}>
+        <Text style={styles.step}>1. Select your Circle</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{gap:12, paddingVertical:8}}>
+          {circles.map(c=>(
+            <TouchableOpacity key={c.id} onPress={()=>setCircleId(c.id)}
+              style={[styles.circleCard, circleId===c.id && styles.circleCardSel]}>
+              <Text style={styles.circleName}>{c.name}</Text>
+              <Text style={styles.circleType}>{c.type}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+
+        {circleId ? (
+          <>
+            <Text style={[styles.step, {marginTop:16}]}>2. Choose a user</Text>
+            <View style={{gap:8}}>
+              {devUsers.map(u=>(
+                <TouchableOpacity key={u.id} onPress={()=>setUserId(u.id)}
+                  style={[styles.userRow, userId===u.id && styles.userRowSel]}>
+                  <View style={styles.avatar}/>
+                  <View style={{flex:1}}>
+                    <Text style={styles.userName}>{u.name}</Text>
+                    <Text style={styles.userRole}>{u.role}</Text>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </View>
+            <TouchableOpacity disabled={!userId} onPress={handleLogin}
+              style={[styles.cta, !userId && {opacity:0.5}]}>
+              <Text style={styles.ctaText}>Continue</Text>
+            </TouchableOpacity>
+            <Text style={styles.disclaimer}>Dev login only — selects a seeded user for fast demos.</Text>
+          </>
+        ) : null}
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'var(--color-background-primary)',
-  },
-  content: {
-    padding: 24,
-    paddingTop: 60,
-  },
-  title: {
-    fontSize: 36,
-    fontWeight: '800',
-    color: 'var(--color-text-primary)',
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 18,
-    color: 'var(--color-text-secondary)',
-    textAlign: 'center',
-    marginBottom: 48,
-  },
-  section: {
-    marginBottom: 32,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: 'var(--color-text-primary)',
-    marginBottom: 16,
-  },
-  option: {
-    padding: 16,
-    borderWidth: 1,
-    borderColor: 'var(--color-border-primary)',
-    borderRadius: 12,
-    marginBottom: 12,
-    backgroundColor: 'var(--color-background-primary)',
-  },
-  selectedOption: {
-    borderColor: 'var(--color-primary-500)',
-    backgroundColor: 'var(--color-primary-50)',
-  },
-  optionText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: 'var(--color-text-primary)',
-    marginBottom: 4,
-  },
-  optionSubtext: {
-    fontSize: 14,
-    color: 'var(--color-text-secondary)',
-  },
-  loginButton: {
-    backgroundColor: 'var(--color-primary-500)',
-    padding: 16,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginTop: 16,
-  },
-  loginButtonDisabled: {
-    backgroundColor: 'var(--color-text-tertiary)',
-  },
-  loginButtonText: {
-    color: 'var(--color-text-inverse)',
-    fontSize: 18,
-    fontWeight: '600',
-  },
+  page:{ flex:1, padding:24, backgroundColor: theme.colors.surface50 as any },
+  hero:{ alignItems:'flex-start', marginBottom:16 },
+  brand:{ fontSize:28, fontWeight:'900', color: theme.colors.ink900 as any, letterSpacing:0.2 },
+  title:{ fontSize:28, fontWeight:'800', color: theme.colors.ink900 as any },
+  subtitle:{ fontSize:16, color: theme.colors.ink700 as any, marginTop:4, maxWidth:680 },
+  card:{ backgroundColor: theme.colors.surface0 as any, borderRadius:16, padding:16, shadowColor:'#000', shadowOpacity:0.06, shadowRadius:16,
+         borderWidth:1, borderColor: theme.colors.borderSubtle as any },
+  step:{ fontSize:14, fontWeight:'700', color: theme.colors.primary700 as any },
+  circleCard:{ padding:12, borderRadius:12, borderWidth:1, borderColor: theme.colors.borderSubtle as any, backgroundColor: theme.colors.surface0 as any, minWidth:200 },
+  circleCardSel:{ borderColor: theme.colors.primary700 as any, backgroundColor: theme.colors.surface100 as any },
+  circleName:{ fontSize:16, fontWeight:'700', color: theme.colors.ink900 as any },
+  circleType:{ fontSize:12, color: theme.colors.ink700 as any, marginTop:2 },
+  userRow:{ flexDirection:'row', alignItems:'center', padding:10, borderRadius:12, borderWidth:1, borderColor: theme.colors.borderSubtle as any, backgroundColor: theme.colors.surface0 as any },
+  userRowSel:{ borderColor: theme.colors.primary700 as any, backgroundColor: theme.colors.surface100 as any },
+  avatar:{ width:36, height:36, borderRadius:18, backgroundColor: theme.colors.borderSubtle as any, marginRight:10 },
+  userName:{ fontSize:16, fontWeight:'700', color: theme.colors.ink900 as any },
+  userRole:{ fontSize:12, color: theme.colors.ink700 as any },
+  cta:{ marginTop:16, alignItems:'center', backgroundColor: theme.colors.primary700 as any, paddingVertical:14, borderRadius:12 },
+  ctaText:{ color:'#fff', fontWeight:'800', fontSize:16 },
+  disclaimer:{ fontSize:12, color: theme.colors.ink700 as any, marginTop:8 }
 });

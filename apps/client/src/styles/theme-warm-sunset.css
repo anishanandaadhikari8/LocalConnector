@@ -1,0 +1,53 @@
+/* Warm Sunset — tokens */
+:root {
+  /* brand */
+  --primary-600: #EA580C; /* orange-600 */
+  --primary-700: #C2410C; /* orange-700 */
+  --primary-800: #9A3412; /* orange-800 */
+  --accent-500:  #8B5CF6; /* violet-500 */
+  --accent-600:  #7C3AED; /* violet-600 */
+
+  /* surfaces / ink (warm neutrals) */
+  --surface-0:   #FFFFFF;
+  --surface-50:  #FFFBF5; /* warm paper */
+  --surface-100: #FFF1E6; /* light warm */
+  --ink-700:     #3B2F27;
+  --ink-800:     #26221F;
+  --ink-900:     #1B1B1B;
+
+  /* borders */
+  --border-subtle:#F2E6DC;
+  --border-strong:#E6D6CC;
+
+  /* semantic roles */
+  --role-info-bg:    #EEF2FF; --role-info-fg:#4338CA; --role-info-bd:#C7D2FE;
+  --role-success-bg: #ECFDF5; --role-success-fg:#047857; --role-success-bd:#A7F3D0;
+  --role-warning-bg: #FFFBEB; --role-warning-fg:#92400E; --role-warning-bd:#FDE68A;
+  --role-danger-bg:  #FEF2F2; --role-danger-fg:#B91C1C; --role-danger-bd:#FECACA;
+
+  /* focus */
+  --focus-ring:     rgba(234,88,12,.50);  /* primary */
+  --focus-ring-alt: rgba(139,92,246,.55); /* accent */
+}
+
+/* (Optional) dark mode for Warm Sunset */
+:root[data-theme="dark"] {
+  --surface-0:   #171412;
+  --surface-50:  #1D1917;
+  --surface-100: #24201D;
+  --ink-700:     #E7E5E4;
+  --ink-800:     #F3F4F6;
+  --ink-900:     #FFFFFF;
+  --border-subtle:#2A2623;
+  --border-strong:#3A342F;
+}
+
+/* base */
+html, body { background: var(--surface-50); color: var(--ink-900); }
+*:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px var(--focus-ring), 0 0 0 6px rgba(0,0,0,.04);
+  border-radius: 10px;
+}
+
+

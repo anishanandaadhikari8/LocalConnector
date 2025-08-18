@@ -1,11 +1,17 @@
 import { create } from 'zustand';
 
-type UIState = {
-  toast?: { kind: 'success' | 'error' | 'info'; msg: string };
-  setToast: (t?: UIState['toast']) => void;
-};
+interface UIState {
+  loading: boolean;
+  toast: { message: string; type: 'success' | 'error' | 'info' } | null;
+  setLoading: (loading: boolean) => void;
+  showToast: (message: string, type?: 'success' | 'error' | 'info') => void;
+  hideToast: () => void;
+}
 
 export const useUIStore = create<UIState>((set) => ({
-  toast: undefined,
-  setToast: (toast) => set({ toast }),
+  loading: false,
+  toast: null,
+  setLoading: (loading) => set({ loading }),
+  showToast: (message, type = 'info') => set({ toast: { message, type } }),
+  hideToast: () => set({ toast: null }),
 }));

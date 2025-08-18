@@ -1,14 +1,16 @@
 import { create } from 'zustand';
-import { Circle } from '@/api/types';
+import type { Circle } from '../api/types';
 
-type CircleState = {
-  circle?: Circle;
+interface CircleState {
+  circle: Circle | null;
   features: string[];
-  setCircle: (c: Circle, features: string[]) => void;
-};
+  setCircle: (circle: Circle, features: string[]) => void;
+  clearCircle: () => void;
+}
 
 export const useCircleStore = create<CircleState>((set) => ({
-  circle: undefined,
+  circle: null,
   features: [],
   setCircle: (circle, features) => set({ circle, features }),
+  clearCircle: () => set({ circle: null, features: [] }),
 }));

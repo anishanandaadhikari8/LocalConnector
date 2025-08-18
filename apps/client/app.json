@@ -5,29 +5,9 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "resizeMode": "contain",
-      "backgroundColor": "#6C8CFF"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.circles.app"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#6C8CFF"
-      },
-      "package": "com.circles.app"
-    },
-    "web": {
-      "bundler": "metro"
-    },
-    "plugins": [
-      "expo-router"
-    ],
+    "assetBundlePatterns": ["**/*"],
+    "plugins": ["expo-router"],
+    "web": { "bundler": "metro" },
     "scheme": "circles"
   }
 }

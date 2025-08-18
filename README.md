@@ -39,10 +39,11 @@ A modern community management platform for apartments, hotels, and offices. Buil
    npm install
    ```
 
-2. **Start the development server**
-   ```bash
-   npm run dev
+2. **Start the development server (Windows)**
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File start-app.ps1
    ```
+   Press `w` to open Web when prompted.
 
 3. **Open in browser**
    - Navigate to `http://localhost:8081` (or the port shown in terminal)
@@ -68,9 +69,9 @@ npm run lint
 
 ### 1. Resident Experience (3 min)
 1. **Login as Resident**
-   - Select "Oakwood Apartments" 
-   - Choose "Sarah Johnson" (RESIDENT role)
-   - Click "Sign In"
+   - Select "Oakwood Apartments"
+   - Choose "Sarah Johnson" (RESIDENT)
+   - Continue
 
 2. **Book an Amenity**
    - Tap "Book" tab
@@ -89,8 +90,8 @@ npm run lint
 ### 2. Admin Experience (3 min)
 1. **Login as Admin**
    - Select "Oakwood Apartments"
-   - Choose "Mike Chen" (ADMIN role)
-   - Click "Sign In"
+   - Choose "Mike Chen" (ADMIN)
+   - Continue
 
 2. **Dashboard Overview**
    - View KPI cards (bookings, approval time, MTTR)
@@ -112,6 +113,22 @@ npm run lint
 - **Switch Circles**: Try River Inn Hotel or North Tower Office
 - **Different Roles**: Test Security, Maintenance, Staff roles
 - **Mobile Experience**: Resize browser to mobile dimensions
+
+### Fixture Users
+- Oakwood Apartments (APARTMENT)
+  - Sarah Johnson (RESIDENT)
+  - Alex Kim (RESIDENT)
+  - Maria Garcia (RESIDENT)
+  - Mike Chen (ADMIN)
+  - Lisa Rodriguez (SECURITY)
+  - David Thompson (MAINTENANCE)
+- River Inn Hotel (HOTEL)
+  - Emma Wilson (STAFF)
+- North Tower Office (OFFICE)
+  - James Brown (STAFF)
+
+### Kiosk Check-in (demo)
+- Route: `/kiosk/checkin` — enter a booking ID from Resident → Bookings and press Check-in.
 
 ## 🏗️ Architecture
 

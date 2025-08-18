@@ -1,31 +1,45 @@
 import React from 'react';
-import { Tabs } from 'expo-router';
+import { Tabs, Redirect, Link } from 'expo-router';
+import Logo from '../../src/components/Logo';
 
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useAuthStore } from '../../src/store/auth';
+import { useCircleStore } from '../../src/store/circle';
+import { theme } from '../../src/theme/theme';
 
 export default function AdminLayout() {
+  const { role, circle } = useAuthStore();
+  const { features } = useCircleStore();
+  const isAdmin = role === 'ADMIN' || role === 'SECURITY' || role === 'MAINTENANCE' || role === 'SUPERADMIN' || role === 'STAFF';
+  if (!isAdmin) return <Redirect href="/(auth)/login" />;
+
+  const has = (f: string) => features?.includes(f);
+
   return (
     <View style={styles.container}>
-      {/* Header with Circle Info */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Text style={styles.circleName}>Oakwood Apartments</Text>
-          <Text style={styles.circleType}>APARTMENT • ADMIN</Text>
+          <View style={{flexDirection:'row', alignItems:'center', gap:8}}>
+            <Logo size={20} />
+            <Text style={styles.circleName}>{circle?.name || 'Select Circle'}</Text>
+          </View>
+          <Text style={styles.circleType}>{circle?.type || ''} • ADMIN</Text>
         </View>
-        <TouchableOpacity style={styles.circleSwitcher}>
-          <Ionicons name="swap-horizontal" size={20} color="#6C8CFF" />
-          <Text style={styles.switchText}>Switch</Text>
-        </TouchableOpacity>
+        <Link href="/circles/switcher" asChild>
+          <TouchableOpacity style={styles.circleSwitcher}>
+            <Ionicons name="swap-horizontal" size={20} color={theme.colors.primary700 as any} />
+            <Text style={styles.switchText}>Switch</Text>
+          </TouchableOpacity>
+        </Link>
       </View>
 
-      {/* Admin Tabs */}
       <Tabs
         screenOptions={{
           headerShown: false,
           tabBarStyle: styles.tabBar,
-          tabBarActiveTintColor: '#6C8CFF',
-          tabBarInactiveTintColor: '#9CA3AF',
+          tabBarActiveTintColor: theme.colors.primary700 as any,
+          tabBarInactiveTintColor: theme.colors.ink700 as any,
           tabBarLabelStyle: styles.tabLabel,
         }}
       >
@@ -46,6 +60,7 @@ export default function AdminLayout() {
               <Ionicons name="checkmark-circle" size={size} color={color} />
             ),
           }}
+          href={has('BOOKINGS') ? undefined : null}
         />
         <Tabs.Screen
           name="incidents"
@@ -55,6 +70,7 @@ export default function AdminLayout() {
               <Ionicons name="warning" size={size} color={color} />
             ),
           }}
+          href={has('INCIDENTS') ? undefined : null}
         />
         <Tabs.Screen
           name="analytics"
@@ -64,6 +80,7 @@ export default function AdminLayout() {
               <Ionicons name="bar-chart" size={size} color={color} />
             ),
           }}
+          href={has('ANALYTICS') ? undefined : null}
         />
         <Tabs.Screen
           name="comms"
@@ -73,6 +90,7 @@ export default function AdminLayout() {
               <Ionicons name="megaphone" size={size} color={color} />
             ),
           }}
+          href={has('COMMS') ? undefined : null}
         />
         <Tabs.Screen
           name="members"
@@ -82,6 +100,7 @@ export default function AdminLayout() {
               <Ionicons name="people" size={size} color={color} />
             ),
           }}
+          href={has('MEMBERS') ? undefined : null}
         />
         <Tabs.Screen
           name="profile"
@@ -100,7 +119,7 @@ export default function AdminLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F6F7FB',
+    backgroundColor: theme.colors.surface50 as any,
   },
   header: {
     flexDirection: 'row',
@@ -108,9 +127,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 24,
     paddingVertical: 16,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface0 as any,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E8F0',
+    borderBottomColor: theme.colors.borderSubtle as any,
   },
   headerLeft: {
     flex: 1,
@@ -118,13 +137,13 @@ const styles = StyleSheet.create({
   circleName: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#111318',
+    color: theme.colors.ink900 as any,
     marginBottom: 2,
   },
   circleType: {
     fontSize: 12,
-    color: '#6B7280',
-    backgroundColor: '#F3F4F6',
+    color: theme.colors.ink700 as any,
+    backgroundColor: theme.colors.surface100 as any,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 8,
@@ -134,7 +153,7 @@ const styles = StyleSheet.create({
   circleSwitcher: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F0F4FF',
+    backgroundColor: theme.colors.surface100 as any,
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 12,
@@ -142,13 +161,13 @@ const styles = StyleSheet.create({
   switchText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#6C8CFF',
+    color: theme.colors.primary700 as any,
     marginLeft: 4,
   },
   tabBar: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface0 as any,
     borderTopWidth: 1,
-    borderTopColor: '#E5E8F0',
+    borderTopColor: theme.colors.borderSubtle as any,
     paddingBottom: 8,
     paddingTop: 8,
     height: 88,

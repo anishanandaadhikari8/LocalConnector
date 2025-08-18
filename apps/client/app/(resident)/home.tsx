@@ -9,6 +9,8 @@ import {
   Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import Logo from '../../src/components/Logo';
+import { theme } from '../../src/theme/theme';
 import { format, parseISO } from 'date-fns';
 
 // Mock data for now - in real app this would come from API
@@ -99,26 +101,26 @@ export default function ResidentHomeScreen() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'APPROVED':
-        return '#4CC38A';
+        return theme.colors.successFg as any;
       case 'PENDING':
-        return '#FFC857';
+        return theme.colors.warningBg as any;
       case 'REJECTED':
-        return '#FF6B6B';
+        return theme.colors.dangerFg as any;
       default:
-        return '#6B7280';
+        return theme.colors.ink700 as any;
     }
   };
 
   const getRSVPColor = (status: string) => {
     switch (status) {
       case 'GOING':
-        return '#4CC38A';
+        return theme.colors.successFg as any;
       case 'INTERESTED':
-        return '#FFC857';
+        return theme.colors.warningBg as any;
       case 'DECLINED':
-        return '#FF6B6B';
+        return theme.colors.dangerFg as any;
       default:
-        return '#6B7280';
+        return theme.colors.ink700 as any;
     }
   };
 
@@ -127,14 +129,12 @@ export default function ResidentHomeScreen() {
       <ScrollView style={styles.scrollView}>
         {/* Header */}
         <View style={styles.header}>
-          <View>
+          <View style={{flexDirection:'row', alignItems:'center', gap:8}}>
+            <Logo size={28} />
             <Text style={styles.greeting}>Good morning, Sarah!</Text>
             <Text style={styles.subtitle}>Oakwood Apartments</Text>
           </View>
-          <TouchableOpacity
-            style={styles.profileButton}
-            onPress={() => router.push('/(resident)/profile')}
-          >
+          <TouchableOpacity style={styles.profileButton} onPress={() => router.push('/(resident)/profile')}>
             <View style={styles.avatar}>
               <Text style={styles.avatarText}>SJ</Text>
             </View>
@@ -281,7 +281,7 @@ export default function ResidentHomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F6F7FB',
+    backgroundColor: theme.colors.surface50 as any,
   },
   scrollView: {
     flex: 1,
@@ -296,12 +296,12 @@ const styles = StyleSheet.create({
   greeting: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#111318',
+    color: theme.colors.ink900 as any,
     marginBottom: 4,
   },
   subtitle: {
     fontSize: 16,
-    color: '#6B7280',
+    color: theme.colors.ink700 as any,
   },
   profileButton: {
     padding: 4,
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#6C8CFF',
+    backgroundColor: theme.colors.primary700 as any,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface0 as any,
     borderRadius: 16,
     padding: 20,
     alignItems: 'center',
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
   actionText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#111318',
+    color: theme.colors.ink900 as any,
     textAlign: 'center',
   },
   section: {
@@ -360,15 +360,15 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#111318',
+    color: theme.colors.ink900 as any,
   },
   seeAllText: {
     fontSize: 14,
-    color: '#6C8CFF',
+    color: theme.colors.primary700 as any,
     fontWeight: '600',
   },
   announcementCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface0 as any,
     borderRadius: 16,
     padding: 20,
     marginBottom: 12,
@@ -387,20 +387,20 @@ const styles = StyleSheet.create({
   announcementTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#111318',
+    color: theme.colors.ink900 as any,
     flex: 1,
   },
   announcementDate: {
     fontSize: 12,
-    color: '#9CA3AF',
+    color: theme.colors.ink700 as any,
   },
   announcementBody: {
     fontSize: 14,
-    color: '#6B7280',
+    color: theme.colors.ink700 as any,
     lineHeight: 20,
   },
   bookingCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface0 as any,
     borderRadius: 16,
     padding: 20,
     marginBottom: 12,
@@ -419,12 +419,12 @@ const styles = StyleSheet.create({
   bookingAmenity: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#111318',
+    color: theme.colors.ink900 as any,
     marginBottom: 4,
   },
   bookingTime: {
     fontSize: 14,
-    color: '#6B7280',
+    color: theme.colors.ink700 as any,
   },
   statusBadge: {
     paddingHorizontal: 12,
@@ -438,7 +438,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   emptyState: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface0 as any,
     borderRadius: 16,
     padding: 40,
     alignItems: 'center',
@@ -450,11 +450,11 @@ const styles = StyleSheet.create({
   },
   emptyStateText: {
     fontSize: 16,
-    color: '#6B7280',
+    color: theme.colors.ink700 as any,
     marginBottom: 16,
   },
   emptyStateButton: {
-    backgroundColor: '#6C8CFF',
+    backgroundColor: theme.colors.primary700 as any,
     paddingHorizontal: 20,
     paddingVertical: 12,
     borderRadius: 12,
@@ -465,7 +465,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   eventCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface0 as any,
     borderRadius: 16,
     padding: 20,
     marginBottom: 12,
@@ -484,12 +484,12 @@ const styles = StyleSheet.create({
   eventTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#111318',
+    color: theme.colors.ink900 as any,
     marginBottom: 4,
   },
   eventTime: {
     fontSize: 14,
-    color: '#6B7280',
+    color: theme.colors.ink700 as any,
   },
   rsvpBadge: {
     paddingHorizontal: 12,
@@ -503,7 +503,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   pollCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface0 as any,
     borderRadius: 16,
     padding: 20,
     marginBottom: 12,
@@ -522,23 +522,23 @@ const styles = StyleSheet.create({
   pollQuestion: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#111318',
+    color: theme.colors.ink900 as any,
     marginBottom: 4,
   },
   pollVotes: {
     fontSize: 14,
-    color: '#6B7280',
+    color: theme.colors.ink700 as any,
   },
   pollAction: {
     alignItems: 'center',
   },
   votedText: {
     fontSize: 14,
-    color: '#4CC38A',
+    color: theme.colors.successFg as any,
     fontWeight: '600',
   },
   voteButton: {
-    backgroundColor: '#6C8CFF',
+    backgroundColor: theme.colors.primary700 as any,
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 12,
