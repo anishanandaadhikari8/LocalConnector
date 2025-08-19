@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import Logo from '../../src/components/Logo';
+import api from '../../src/api';
 import { theme } from '../../src/theme/theme';
 import { format, parseISO } from 'date-fns';
 

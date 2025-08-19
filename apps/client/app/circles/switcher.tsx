@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import MockApi from '../../src/api/ApiAdapter';
+import api from '../../src/api';
 import { useAuthStore } from '../../src/store/auth';
 import { useCircleStore } from '../../src/store/circle';
 import { theme } from '../../src/theme/theme';
 import { router } from 'expo-router';
 
-const api = new MockApi();
 
 export default function CircleSwitcherScreen() {
   const { user, login } = useAuthStore();

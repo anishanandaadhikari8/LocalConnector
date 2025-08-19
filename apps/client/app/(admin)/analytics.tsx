@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
-import MockApi from '../../src/api/ApiAdapter';
+import api from '../../src/api';
 import { theme } from '../../src/theme/theme';
 import { useAuthStore } from '../../src/store/auth';
 import ChartBlock from '../../src/components/ChartBlock';
 
-const api = new MockApi();
 
 export default function AnalyticsScreen() {
   const { circle } = useAuthStore();

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import MockApi from '../../src/api/ApiAdapter';
+import api from '../../src/api';
 import { theme } from '../../src/theme/theme';
 
-const api = new MockApi();
 
 export default function KioskCheckinScreen() {
   const [bookingId, setBookingId] = useState('');

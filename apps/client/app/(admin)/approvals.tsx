@@ -1,11 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
-import MockApi from '../../src/api/ApiAdapter';
+import api from '../../src/api';
 import type { Booking } from '../../src/api/types';
 import { useAuthStore } from '../../src/store/auth';
 import { theme } from '../../src/theme/theme';
 
-const api = new MockApi();
 
 export default function ApprovalsScreen() {
   const { circle } = useAuthStore();

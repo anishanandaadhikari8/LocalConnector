@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import MockApi from '../../src/api/ApiAdapter';
+import api from '../../src/api';
 import { theme } from '../../src/theme/theme';
 import { useAuthStore } from '../../src/store/auth';
 
-const api = new MockApi();
 
 export default function PollsScreen() {
   const { circle, user } = useAuthStore();

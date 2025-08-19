@@ -1,9 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import MockApi from '../api/ApiAdapter';
+import apiFactory from '../api';
 
 describe('Core flows (MockApi)', () => {
-  it('lists circles and users', async () => {
-    const api = new MockApi();
+  it('lists circles and users (mock factory by default)', async () => {
+    const api = apiFactory;
     const circles = await api.getCircles();
     const users = await api.listUsers();
     expect(circles.length).toBeGreaterThan(0);
@@ -11,7 +12,7 @@ describe('Core flows (MockApi)', () => {
   });
 
   it('creates a booking and returns an ICS link', async () => {
-    const api = new MockApi();
+    const api = apiFactory;
     const c = (await api.getCircles())[0];
     const a = (await api.getAmenities(c.id))[0];
     const u = (await api.listUsers())[0];
@@ -24,7 +25,7 @@ describe('Core flows (MockApi)', () => {
   });
 
   it('creates incident', async () => {
-    const api = new MockApi();
+    const api = apiFactory;
     const c = (await api.getCircles())[0];
     const u = (await api.listUsers())[0];
     const inc = await api.createIncident({ circle_id:c.id, reporter_id:u.id, type:'SECURITY', severity:3, description:'Test' });

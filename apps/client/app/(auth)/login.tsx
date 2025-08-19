@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-nati
 import { router } from 'expo-router';
 import Logo from '../../src/components/Logo';
 import { theme } from '../../src/theme/theme';
-import MockApi from '../../src/api/ApiAdapter';
+import api from '../../src/api';
 import { useAuthStore } from '../../src/store/auth';
 import { useCircleStore } from '../../src/store/circle';
 
@@ -12,7 +12,6 @@ type AppUser = { id:string; email:string; display_name:string; avatar_url?:strin
 type Membership = { id:string; circle_id:string; user_id:string; role:UserRole };
 type Circle = { id:string; name:string; type:'APARTMENT'|'HOTEL'|'OFFICE' };
 
-const api = new MockApi();
 
 export default function LoginScreen() {
   const [circles, setCircles] = useState<Circle[]>([]);
