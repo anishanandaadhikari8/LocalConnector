@@ -1,16 +1,16 @@
 {
   "name": "@circles/server",
   "version": "0.1.0",
-  "type": "module",
+  "type": "commonjs",
   "private": true,
   "scripts": {
-    "dev": "tsx src/index.ts",
-    "start": "node dist/index.js",
+    "dev": "node server.js",
+    "start": "node server.js",
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
     "fastify": "^4.26.2",
-    "fastify-cors": "^8.4.2"
+    "fastify-cors": "^6.1.0"
   },
   "devDependencies": {
     "tsx": "^4.7.0",

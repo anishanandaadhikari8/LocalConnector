@@ -1,0 +1,187 @@
+# Local Social Media ("Signals") - Complete Requirements Specification
+
+## Overview
+Local Social Media is a separate service that provides social networking capabilities within each Circle (Geo, Building, Organization, Community). Each Circle has its own feed with two lanes: Help (utility-first) and Show (entertainment).
+
+## Core Concepts
+
+### Circles & Scope
+- **GeoCircle**: H3 geo-cell based (e.g., "Local", "Here ±1 ring")
+- **BuildingCircle**: Apartments/HOAs/hotels (lease verification)
+- **OrgCircle**: Company/campus/storefront (work email/SSO)
+- **CommunityCircle**: User-created groups anchored to GeoCircle
+
+### Feed Lanes
+- **Help Lane**: Utility-first (Asks/Safety prioritized)
+- **Show Lane**: Local entertainment (clips, prompts, remixes)
+
+### Post Types
+- **Signals**: Video/audio/text posts (24-48h TTL)
+- **Asks**: Help requests (Open → Claimed → Done)
+- **Swaps**: Lend/borrow/free/sell items
+- **Events**: Local events with RSVP
+- **Bulletins**: Admin announcements
+- **Giveaways**: Surplus items/food
+
+## Key Features
+
+### 1. Creator Mode
+- **Unlock Criteria**: ≥3 Thanks, ≥5 posts, <1% report rate
+- **Perks**: 45s clips, scheduled posts, duet/stitch, analytics
+- **Scope**: Same Circle or ±1 ring only
+
+### 2. Stage (Weekly Spotlight)
+- Top 10 Show posts per Circle (WTR + Thanks - reports)
+- Stage badge (30-day decay)
+- Future: SMB sponsorship capability
+
+### 3. Reputation System
+- **Per-Circle Trust Score** (0-5)
+- **Badges**: Helper, Reliable, First Responder, Stage Winner
+- **Factors**: Thanks, claims completed, response time, reports
+
+### 4. Privacy & Safety
+- **KYC Required**: To post/comment
+- **Cell-based**: Store only cell_id, never raw GPS
+- **Coarse Labels**: "near Oak Ave" not exact addresses
+- **Guardian Mode**: Hide "Here" exposure
+- **Mutual Block**: Invisibility across shared Circles
+
+## Technical Architecture
+
+### Service Boundaries
+- **signals-service**: Posts, feeds, ranking, TTL, reputation
+- **core-circles**: Users, identities, memberships, Circle definitions
+- **media-service**: Upload, transcode, captioning
+- **reputation-service**: Aggregate Circle reputation
+
+### Data Stores
+- **Postgres**: Primary data, reputation, reports
+- **Redis**: Feed caches, rate limits
+- **Object Store**: Media via media-service
+
+### Performance SLOs
+- P50 feed API < 120ms
+- P50 post-submit to delivery < 1.5s
+- P50 notification fan-out < 2s
+
+## API Endpoints
+
+### Feed
+```
+GET /v1/feed?circleId=...&lane=help|show&after=cursor&limit=30
+GET /v1/circles (user's circles with reputation)
+```
+
+### Posts
+```
+POST /v1/signals (create post)
+GET /v1/posts/{id} (full detail + comments)
+POST /v1/posts/{id}/comment
+POST /v1/asks/{id}/claim
+POST /v1/asks/{id}/thank
+POST /v1/events/{id}/rsvp
+POST /v1/posts/{id}/react (thank/help)
+```
+
+### Show Lane Extras
+```
+POST /v1/remix/duet (basePostId, media)
+POST /v1/prompts/reply (promptId, media)
+```
+
+### Moderation
+```
+POST /v1/report (targetType, targetId, reason)
+POST /v1/block (userId)
+POST /v1/bulletins (admin only)
+```
+
+### Community Circles
+```
+POST /v1/community-circles (create)
+GET /v1/cells/{cellId}/community-circles
+POST /v1/community-circles/{id}/join
+POST /v1/community-circles/{id}/requests/{reqId}:approve|deny
+```
+
+## Ranking Algorithms
+
+### Help Lane (Utility-First)
+```
+score = recency*w2 + typePriority*w3 + socialProof*w4 + completionLikelihood*w5 - reports*w6
+typePriority: Ask/Safety > Signal > Event > Swap > Bulletin/Deal
+```
+
+### Show Lane (Entertainment)
+```
+score = watchThrough10s*w3 + thanks*w4 + recency*w2 - reports*w6 + proximityBonus*w7
+```
+
+## Rate Limits
+- **Here switches**: 3/day, 15-30m cooldown
+- **New accounts**: Reduced reach until 3 Thanks or 1 Claim→Done
+- **DM throttle**: First-contact/day caps
+- **Bulletins**: 1 pinned per admin circle
+
+## Key Metrics (KPIs)
+
+### Product KPIs
+- **TTFR**: Median Time-to-First-Response on Asks (< 30 min)
+- **Ask fulfillment**: % Asks → Done in 48h (≥ 60%)
+- **Engagement**: % WAU who post or claim (≥ 30%)
+- **Show lane**: WTR@10s ≥ 60%, first-10-views < 5 min
+- **Creator activation**: % actives with ≥1 Show/Help Signal per week (≥ 20%)
+- **Safety**: Report rate < 1%, mod SLA < 2h
+- **Retention**: D1 ≥ 40%, D7 ≥ 20%
+
+### Analytics Events
+- feed_impression, card_impression, video_3s, video_10s, video_complete
+- help_click, ask_claim, ask_done, thank, report_submit
+- dm_first_contact, circle_switch, here_switch_blocked
+- composer_open, post_submit_success/fail, stage_view
+
+## Notifications
+- ask_claimed, ask_done_thanked, post_comment, post_reply
+- thanks_received, event_reminder, bulletin_pin
+- stage_featured, here_switch_blocked, safety_warning
+
+## Feature Flags
+- show_lane (ON), creator_mode (OFF), stage_weekly (OFF)
+- remix_tools (OFF), giveaways (ON), group_threads (OFF)
+- map_toggle (OFF), daily_digest (OFF)
+
+## Implementation Phases
+
+### Phase 1: Core Service
+- DB migrations, REST endpoints
+- TTL sweeper, Redis caches, notifications
+- Basic ranking (Help lane), rate limits, moderation
+
+### Phase 2: Show Lane & Creator
+- Show lane ranking, Creator Mode gating
+- Video templates, captions, Stage job + badge
+- Community Circles APIs, Saved posts
+
+## Privacy & Security Requirements
+- Never persist raw GPS coordinates
+- Store only cell_id, display coarse location labels
+- KYC + liveness required for posting
+- Hidden-word filters + toxicity detection
+- 3-step enforcement: warn → freeze → ban
+- PII redaction in logs
+
+## Accessibility Requirements
+- WCAG AA compliance
+- Captions on by default
+- Alt-text required for images
+- Full keyboard/focus support
+- 44px touch targets
+
+## Integration with Existing Circles App
+- Each Circle has its own social feed
+- User sees circles they're members of
+- Building circles show building-specific content
+- Geo circles show location-based content
+- Seamless switching between circles
+- Unified reputation across all user's circles

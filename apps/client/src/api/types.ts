@@ -36,3 +36,83 @@ export interface AnomalyAlert { id:ID; circle_id:ID; metric:string; window:strin
 
 export interface AdminBookingFilter { circle_id:ID; amenity_id?:ID; status?:BookingStatus; from?:string; to?:string; }
 export interface AdminIncidentFilter { circle_id:ID; status?:IncidentStatus; min_severity?:number; }
+
+export interface FeedResponse {
+	posts: Post[];
+	next_cursor: string | null;
+	lane: 'help' | 'show';
+	total: number;
+}
+
+export interface Post {
+	id: ID;
+	author_id: ID;
+	circle_id: ID;
+	content: string;
+	lane: 'help' | 'show';
+	kind: 'signal' | 'ask' | 'event' | 'swap' | 'bulletin';
+	media_url?: string;
+	tags: string[];
+	ttl_hours: number;
+	created_at: string;
+	expires_at: string;
+	thanks_count: number;
+	reports_count: number;
+	author_reputation?: {
+		trust_score: number;
+		thanks_count: number;
+		badges: string[];
+	};
+}
+
+export interface Reputation {
+	user_id: ID;
+	circle_id: ID;
+	trust_score: number;
+	thanks_count: number;
+	claims_completed: number;
+	badges: string[];
+	creator_mode: {
+		is_unlocked: boolean;
+		criteria: {
+			trust_score: number;
+			thanks_count: number;
+			posts_count: number;
+		};
+		perks: {
+			max_clip_duration: number;
+			can_schedule: boolean;
+			can_duet: boolean;
+		};
+	};
+}
+
+export interface Report {
+	id: ID;
+	reporter_id: ID;
+	target_type: 'post' | 'comment' | 'user';
+	target_id: ID;
+	reason: string;
+	status: 'queue' | 'actioned' | 'dismissed';
+	created_at: string;
+}
+
+export interface Block {
+	blocker_id: ID;
+	blocked_id: ID;
+	created_at: string;
+}
+
+export interface StageResponse {
+	stage_posts: Post[];
+	week_start: string;
+	next_stage: string;
+}
+
+export interface Ask {
+	post_id: ID;
+	status: 'open' | 'claimed' | 'done' | 'cancelled';
+	claimer_id?: ID;
+	claimed_at?: string;
+	closed_at?: string;
+}

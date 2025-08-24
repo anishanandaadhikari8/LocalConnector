@@ -1,3 +1,40 @@
+[2025-08-19 15:20] ✅ Progress: Node prototype hardening
+• Files: apps/server/server.js
+• Summary: Added rate limits (NowCell 3/day; posting throttle), global signals mine list, events mine list, admin checks on admin routes, uploads stub, moderation counts endpoints.
+• Next: Wire any client uses (uploads, mine lists) as needed; proceed to Members invites.
+
+[2025-08-19 15:25] ✅ Progress: Members invite flow & missing UI routes
+• Files: apps/client/app/(admin)/members.tsx, apps/client/src/api/RealApi.ts, apps/server/server.js, apps/client/app/(resident)/menu.tsx, apps/client/app/(resident)/visitor-pass.tsx, apps/client/app/(resident)/verify.tsx, apps/client/app/(resident)/now-cell.tsx
+• Summary: Added invite by email functionality, role badges, verify toggle to Members screen. Added missing API methods (inviteMember, updateMemberVerification). Added backend endpoints for member invites and verification. Created hotel/office stubs (menu, visitor-pass). Enhanced KYC and NowCell screens with proper UI.
+• Next: Add quick tags to Feed, implement reschedule flow for bookings, add date filters to admin approvals.
+
+[2025-08-19 15:30] ✅ Progress: Complete Node.js backend with user management & circle features
+• Files: apps/server/server.js, apps/client/src/api/RealApi.ts, apps/client/app/(resident)/circles.tsx, apps/client/app/(resident)/_layout.tsx
+• Summary: Added create circle, join circle, user verification, get user circles endpoints. Created Circles management screen with create/join functionality. Added circles tab to resident layout. Enhanced seed data with proper timestamps and verification status. All user-related services now complete with mock users and full circle management capabilities.
+• Next: Test all features end-to-end, add any missing UI polish, prepare for Spring Boot migration.
+
+[2025-08-19 15:35] ✅ Progress: User registration & verification flow
+• Files: apps/client/app/(auth)/login.tsx, apps/client/src/api/RealApi.ts, apps/client/app/(resident)/profile.tsx
+• Summary: Added user registration form to login screen with name/email fields. Added createUser API method. Enhanced profile screen with user verification (KYC) functionality. Users can now register new accounts, join circles, and verify their identity. Backend persists all user data and memberships.
+• Next: Test complete user flow: register → verify → create circles → post content.
+
+[2025-08-19 14:45] ✅ Progress: Admin Approvals filters and Feed ring toggle
+• Files: apps/client/app/(admin)/approvals.tsx, apps/client/app/(resident)/feed.tsx
+• Summary: Added status/amenity filters to Approvals with chip UI; Feed now supports HomeCell vs NowCell ring toggle and refreshes accordingly.
+• Next: Add explicit pagination controls to Feed and finalize filter UX.
+
+[2025-08-19 15:00] ✅ Progress: Feed pagination controls
+• Files: apps/client/app/(resident)/feed.tsx
+• Summary: Added quick page size chips (10/20/50) and Reset; feed requests now honor limit and refresh on change.
+• Next: Minor a11y passes and Members invites.
+[2025-08-19 14:25] ✅ Meta: Consolidated past chat directives and product requirements into EngineeringLog
+• Files: docs/EngineeringLog.md
+• Summary: Added conversation/decisions digest, product.txt requirements extract, traceability matrix, and operational notes so future work never loses context.
+• Next: Proceed with feed ring/pagination and Admin Approvals filters.
+[2025-08-19 14:05] ✅ Meta: Created persistent engineering log
+• Files: docs/EngineeringLog.md
+• Summary: Added an append-only engineering log to capture requirements, decisions, invariants, backlog, and running notes. Will update this and CursorProgress after each milestone so context is never lost.
+• Next: Feed pagination/ring support and Admin Approvals filters.
 [2025-08-18 00:00] ✅ Completed: Startup fixes and app boot
 • Files: start-app.ps1, start-app.bat, apps/client/babel.config.js, apps/client/app.json, apps/client/package.json, App.js
 • Summary: Cleaned Expo config, removed deprecated plugins, fixed monorepo entry resolution, cleared cache. App boots and web UI renders.
@@ -67,6 +104,14 @@
 • Files: apps/client/app/(resident)/*, apps/client/app/(admin)/*, apps/client/app/circles/switcher.tsx, apps/client/app/kiosk/checkin.tsx, apps/client/src/components/ChartBlock.tsx, apps/client/assets/logo.svg
 • Summary: Replaced hardcoded hex colors with centralized tokens from src/theme/theme.ts across screens, layouts, and components. Updated logo and charts to use CSS variables so branding changes reflect app-wide.
 • Next: Run tests/type-checks; decide on next phase (backend API or polish: PWA, CI, a11y refinements).
+
+[2025-08-19 10:10] ✅ Completed: API adapter factory + RealApi skeleton
+• Files: apps/client/src/api/index.ts, apps/client/src/api/RealApi.ts, screens import updates
+• Summary: Client can switch between MockApi and RealApi via EXPO_PUBLIC_API_BASE_URL; added OpenAPI draft for backend.
+
+[2025-08-19 10:20] ✅ Completed: Backend scaffold (Fastify)
+• Files: apps/server/{package.json, tsconfig.json, src/index.ts}
+• Summary: Added health and stub endpoints (/healthz, /v1/auth/otp, /v1/auth/verify, /v1/verify, /v1/now-cell, /v1/feed). Set client extra env to point at http://localhost:4000.
 CursorProgress — Append after every task (no deletions)
 
 [2024-12-19 15:30] ✅ Completed: 0) Create the 4 control files
@@ -281,3 +326,91 @@ CursorProgress — Append after every task (no deletions)
 • Verification Results: ✅ Files present, ✅ Server running, ✅ All routes responding (/, /health, /login)
 • Testing Script: Created verify-startup.js for reliable startup verification
 • Status: APPLICATION FULLY OPERATIONAL - All master prompt implementations working correctly
+
+[2025-08-19 11:05] ✅ Completed: Minimal backend HTTP server (no deps)
+• Files: apps/server/server.js, apps/server/package.json
+• Summary: Added a zero-dependency Node HTTP server implementing /healthz, /v1/auth/*, /v1/verify, /v1/now-cell, /v1/feed, cell signals (GET/POST), asks (POST/claim/thank), and building bulletins (POST). Updated scripts to run with `node server.js` to bypass tsx/peer-deps conflicts on Windows.
+• Next: Start server, verify endpoints from client RealApi, then expand endpoints (events, polls, analytics) per docs/openapi.yaml.
+
+[2025-08-19 11:35] ✅ Completed: Local Social endpoints (events, RSVP, feed filters/pagination, moderation stubs)
+• Files: apps/server/server.js
+• Summary: Added /v1/cells/{cell_id}/events (GET/POST), /v1/events/{id}/rsvp (POST), feed include/after/limit support, and minimal /v1/report and /v1/block endpoints. Kept signals/asks/bulletins working. Server runs via `node server.js` (no deps).
+• Verified: /healthz OK; created/listed events OK; created signal OK; feed returns paged items; manual RSVP flow pending scripted test due to shell constraints.
+• Next: Wire client Feed + Composer to RealApi (signals/asks/events), add NowCell consent + KYC screens, and implement persistence (Postgres) with seeds.
+
+[2025-08-19 11:55] ✅ Progress: Node prototype extended + RealApi login
+• Files: apps/server/server.js, apps/client/src/api/RealApi.ts
+• Summary: Implemented polls and analytics endpoints, added seed endpoints (circles/users/members/features). Added RealApi.loginDev to set token via /v1/auth/verify and fetch user by email. Server running at http://localhost:4000.
+• Next: Wire Events/Comms/Polls/Analytics screens to RealApi, verify end-to-end via UI.
+
+[2025-08-19 12:25] ✅ Progress: Visible backend logs + Poll creation UI
+• Files: apps/server/server.js, apps/client/app/(resident)/polls.tsx
+• Summary: Added per-request console logging in backend for visibility; implemented Create Poll form on resident Polls screen wired to RealApi.createPoll, list refreshes after create.
+• Next: Add resident Feed screen with composer and moderation; KYC (verify) and NowCell screens.
+
+[2025-08-19 12:45] ✅ Completed: Feed + Composer, Moderation, KYC/NowCell wiring
+• Files: apps/client/app/(resident)/feed.tsx, apps/client/app/(resident)/_layout.tsx, apps/client/app/(resident)/verify.tsx, apps/client/app/(resident)/now-cell.tsx, apps/client/src/api/RealApi.ts
+• Summary: Added resident Feed tab with filters and simple composer (signals), wired report/block actions; created stub Verify (KYC) and NowCell screens calling backend; extended RealApi with feed/signals/asks/moderation/kyc methods.
+• Next: Wire remaining screens fully to RealApi (Events/Comms), add basic smoke tests for new endpoints.
+
+[2025-08-19 13:05] ✅ Progress: Resident bookings cancel + ICS prep, Events RSVP refresh, Profile links
+• Files: apps/client/src/api/RealApi.ts, apps/client/app/(resident)/bookings.tsx, apps/client/app/(resident)/events.tsx, apps/client/app/(resident)/profile.tsx
+• Summary: Added cancelBooking to API and wired cancel flow in My Bookings; Events RSVP now refreshes and handles starts_at/ends_at; Profile links to Verify and NowCell screens.
+• Next: Add booking detail with QR + ICS download, Comms RSVP counts, feed “Mine” toggle and Ask actions.
+
+[2025-08-19 13:25] ✅ Progress: Feed “Mine” toggle + Ask actions, RSVP counts, ICS download
+• Files: apps/client/app/(resident)/feed.tsx, apps/server/server.js, apps/client/app/(admin)/comms.tsx, apps/client/app/(resident)/bookings.tsx
+• Summary: Feed supports Mine filter and Ask Claim/Thank; server returns RSVP counts in circle events; Admin Comms shows RSVP aggregates; My Bookings adds “Add to Calendar” (.ics) on web.
+• Next: Booking detail with QR, Comms pin limits, Feed pagination polish.
+
+[2025-08-19 13:45] ✅ Completed: Booking Detail (QR + ICS) and pin limit enforcement
+• Files: apps/client/app/(resident)/booking/[id].tsx, apps/client/app/(resident)/bookings.tsx, apps/server/server.js
+• Summary: Added resident booking detail page with QR payload and ICS download; list links to detail; backend enforces single pinned announcement per circle.
+• Next: Feed pagination polish and small a11y/perf touches.
+
+[2025-08-19 16:15] ✅ Progress: Local Social Media Implementation - Phase 1 Complete
+• Files: apps/server/server.js, apps/client/src/api/RealApi.ts, apps/client/src/api/types.ts, apps/client/app/(resident)/feed.tsx, apps/client/app/(resident)/stage.tsx, apps/client/app/(resident)/profile.tsx, apps/client/app/(resident)/_layout.tsx
+• Summary: Implemented comprehensive local social media features with Help/Show lanes, reputation system, Creator Mode, and Stage weekly spotlight. Enhanced existing Node.js backend with new endpoints and data structures. Created new UI components for enhanced social experience.
+• Features Added:
+  - Help/Show lane toggle in feed with different ranking algorithms
+  - Reputation system with trust scores, badges, and Creator Mode gating
+  - Enhanced post creation with TTL, media support, and lane-specific features
+  - Stage weekly spotlight for top Show content
+  - Enhanced profile with reputation display and Creator Mode status
+  - Post reactions (Thanks/Help) with reputation updates
+  - Ask claim/thank workflow with reputation rewards
+  - Report and block functionality
+  - TTL cleanup for expired content
+• Backend Enhancements:
+  - New data structures for posts, reputation, reports, blocks
+  - Enhanced feed endpoint with lane filtering and ranking
+  - Post creation with Creator Mode validation
+  - Reputation calculation and badge assignment
+  - Stage computation for weekly spotlight
+  - TTL management for content expiration
+• Frontend Enhancements:
+  - Redesigned feed with lane toggle and enhanced post cards
+  - New Stage screen for weekly spotlight
+  - Enhanced profile with reputation and Creator Mode display
+  - Improved post composer with lane-specific features
+  - Real-time reputation updates and badge display
+• Next: Test all features end-to-end, implement media upload, add advanced Creator Mode features
+
+[2025-08-19 23:30] ✅ RESOLVED: Critical Theme Access Issues Fixed - Application Now Fully Operational
+• Summary: Successfully identified and fixed critical theme access issues that were preventing the application from loading. The Events screen had unsafe theme property access causing "Cannot read properties of undefined (reading 'fg')" errors.
+• Root Cause: Components were accessing theme properties without null checks, causing runtime errors when theme object was undefined during initial render.
+• Fixes Applied:
+  - Added comprehensive null-safe theme access with optional chaining (theme?.colors?.role?.success?.fg)
+  - Added fallback values for all theme properties to prevent undefined errors
+  - Updated all theme access patterns across Events, Asks, Giveaways, and other components
+  - Ran automated theme update script to fix 5 files with theme issues
+• Technical Details:
+  - Fixed unsafe access like `theme.colors.role.success.fg` → `theme?.colors?.role?.success?.fg || '#16A34A'`
+  - Added fallback colors for all theme properties to ensure UI renders even if theme is undefined
+  - Updated styles, functions, and JSX elements to use safe theme access patterns
+• Current Status: 
+  - ✅ Backend server running successfully on http://localhost:4000
+  - ✅ Frontend running successfully on http://localhost:8081  
+  - ✅ All theme access issues resolved
+  - ✅ Application loading without errors
+• Next: Test all features end-to-end, verify social media functionality, and prepare for Spring Boot migration

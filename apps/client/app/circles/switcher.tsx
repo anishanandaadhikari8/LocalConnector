@@ -17,7 +17,7 @@ export default function CircleSwitcherScreen() {
   const choose = async (c: any) => {
     const features = await api.getCircleFeatures(c.id);
     if (!user) { router.replace('/(auth)/login'); return; }
-    login({ token: 't', user, circle: c, role: (useAuthStore.getState().role || 'RESIDENT') as any });
+    login({ token: 't', user, circle: c, role: (useAuthStore.getState().role || 'RESIDENT') });
     setCircle(c, features);
     router.back();
   };
@@ -38,9 +38,29 @@ export default function CircleSwitcherScreen() {
 }
 
 const styles = StyleSheet.create({
-  container:{ flex:1, backgroundColor: theme.colors.surface50 as any },
-  h1:{ fontSize:24, fontWeight:'800', color: theme.colors.ink900 as any },
-  card:{ backgroundColor: theme.colors.surface0 as any, borderRadius:16, padding:16, borderWidth:1, borderColor: theme.colors.borderSubtle as any },
-  name:{ fontSize:16, fontWeight:'700', color: theme.colors.ink900 as any },
-  type:{ fontSize:12, color: theme.colors.ink700 as any },
+	container: {
+		flex: 1,
+		backgroundColor: theme.colors.surface[50],
+	},
+	h1: {
+		fontSize: 24,
+		fontWeight: '800',
+		color: theme.colors.ink[900],
+	},
+	card: {
+		backgroundColor: theme.colors.surface[0],
+		borderRadius: 16,
+		padding: 16,
+		borderWidth: 1,
+		borderColor: theme.colors.border.subtle,
+	},
+	name: {
+		fontSize: 16,
+		fontWeight: '700',
+		color: theme.colors.ink[900],
+	},
+	type: {
+		fontSize: 12,
+		color: theme.colors.ink[700],
+	},
 });

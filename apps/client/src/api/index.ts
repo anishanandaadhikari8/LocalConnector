@@ -1,9 +1,11 @@
 import MockApi from './ApiAdapter';
 import RealApi from './RealApi';
+import Constants from 'expo-constants';
 
-const baseUrl = process.env.EXPO_PUBLIC_API_BASE_URL;
+const envUrl = (process.env)?.EXPO_PUBLIC_API_BASE_URL as string | undefined;
+const extraUrl = (Constants?.expoConfig?.extra)?.EXPO_PUBLIC_API_BASE_URL as string | undefined;
+const baseUrl = envUrl || extraUrl;
 
-// Default to mock if no base URL or explicitly set to 'mock'
 const api = !baseUrl || baseUrl === 'mock' ? new MockApi() : new RealApi(baseUrl);
 
 export default api;
